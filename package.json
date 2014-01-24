@@ -1,0 +1,15 @@
+{
+  "name": "joji",
+  "version": "0.0.0",
+  "description": "personal website",
+  "main": "Gruntfile.js",
+  "dependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-uglify": "~0.3.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "grunt test"
+  },
+  "author": "George Nishimura"
+}
