@@ -5,11 +5,25 @@
   "main": "Gruntfile.js",
   "dependencies": {
     "grunt": "~0.4.2",
-    "grunt-contrib-uglify": "~0.3.2"
+    "express": "~3.4.8",
+    "jade": "~1.1.5"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "grunt-contrib-uglify": "~0.3.2",
+    "grunt-contrib-jshint": "~0.8.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-contrib-stylus": "~0.12.0",
+    "grunt-contrib-coffee": "~0.8.2",
+    "nib": "~1.0.2",
+    "stylus": "~0.42.1",
+    "coffee": "0.0.1",
+    "grunt-nodemon": "~0.2.0",
+    "grunt-concurrent": "~0.4.3"
+  },
   "scripts": {
     "test": "grunt test"
   },
-  "author": "George Nishimura"
+  "author": "George Nishimura",
+  "git": "https://github.com/thetmkay/joji"
 }
