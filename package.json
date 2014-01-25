@@ -3,6 +3,9 @@
   "version": "0.0.0",
   "description": "personal website",
   "main": "Gruntfile.js",
+  "engines": {
+    "node": "0.10.11"
+  }
   "dependencies": {
     "grunt": "~0.4.2",
     "express": "~3.4.8",
