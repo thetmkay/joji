@@ -10,7 +10,7 @@ var express = require('express'),
 
 var app = module.exports = express();
 
-api.setDb("mongodb://user:password@troup.mongohq.com:10017/jojidb");
+api.setDb("mongodb://george:kitten@troup.mongohq.com:10017/jojidb");
 
 
 /**
