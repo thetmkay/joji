@@ -5,7 +5,6 @@ angular.module('joji', [
 	'ui.router'
 ]).
 config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider) {
-	
 	$urlRouterProvider.otherwise('/');
 
 	$stateProvider.
@@ -23,6 +22,8 @@ config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($l
 				mainView: {
 					templateUrl: 'blog/main'
 				}
+			},
+			onEnter : function() {
 			}
 		});
 
