@@ -6,11 +6,12 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  config = require('./config');
 
 var app = module.exports = express();
 
-api.setDb("mongodb://user:password@troup.mongohq.com:10017/jojidb");
+api.setDb("mongodb://" + config.user + ":" + config.password + "@troup.mongohq.com:10017/jojidb");
 
 
 /**
