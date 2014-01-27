@@ -7,7 +7,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['bower_components/jquery/jquery.js','bower_components/angular/angular.js', 'src/js/lib/angular-ui-router.js', 'src/js/**/*.js', 'src/js/app.js'],
+        src: ['bower_components/jquery/jquery.js','bower_components/angular/angular.js','bower_components/angular-resource/angular-resource.js', 'src/js/lib/angular-ui-router.js', 'src/js/**/*.js', 'src/js/*.js'],
         dest: 'public/js/<%= pkg.name %>.js'
       }
     },
@@ -36,15 +36,19 @@ module.exports = function(grunt) {
       files: ['Gruntfile.js','src/js/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: ['<%= jshint.files %>'],
-      tasks: []
+      coffee: {
+        files: ['src/coffee/*', 'src/stylus/*', 'Gruntfile.js'],
+        tasks: ['build']
+      }
     },
     coffee: {
-        options: {
-            join: true
-        },
-        files: {
-            'src/js/coffee.js':['src/coffee/*.coffee']
+        dev: {
+            options: {
+                join: true
+            },
+            files: {
+                'src/js/coffee.js':['src/coffee/**/services/*.coffee','src/coffee/**/controllers/*.coffee','src/coffee/**/directives/*.coffee','src/coffee/app.coffee']
+            }  
         }
     },
     concurrent : {
@@ -54,8 +58,8 @@ module.exports = function(grunt) {
               logConcurrentOutput: true
             }
         },
-        build : {
-            tasks: ['coffee', 'stylus'],
+        build: {
+            tasks: ['coffee:dev', 'stylus'],
             options: {
               logConcurrentOutput: true
             }
@@ -64,7 +68,7 @@ module.exports = function(grunt) {
     nodemon: {
         dev: {
             script: 'server.js',
-            ignoredFiles: ['README.md', '.gitignore', 'node_modules/**', 'public/**', 'bower_components/**/*'],
+            ignoredFiles: ['README.md', '.gitignore','node_modules/**', 'public/**', 'bower_components/**/*'],
             options: {
               nodeArgs: ['--debug']
             }

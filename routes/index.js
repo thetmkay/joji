@@ -10,6 +10,7 @@ exports.partials = function (req, res) {
 exports.blog = function(req, res) {
 	console.log("blog");
 	var name = req.params.name;
+	console.log(name);
 	res.render('blog/' + name);
 };
 
