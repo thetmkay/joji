@@ -8,8 +8,8 @@ directives.directive 'blogPost', ['postalService', '$stateParams', (postalServic
 	link: (scope,element,attrs) ->
 		console.log 'dddddd'
 		postalService.getPost($stateParams.posturl).then (post)=>
-			scope.content = post.content
-			scope.title = post.title
+			element.find("#postContent").html(post.content)
+			element.find("#postTitle").html(post.title)
 			return
 		return
 ]

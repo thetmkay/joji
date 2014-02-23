@@ -5,7 +5,7 @@ exports.setDb = function setDb(dbUrl) {
 		w: 1
 	});
 	mongo.loadDB(db);
-}
+};
 
 exports.getPost = function(req,res) {
 	console.log(req.params);
@@ -16,7 +16,7 @@ exports.getPost = function(req,res) {
 		console.log(result);
 		res.json(result);
 	})
-}
+};
 
 exports.name = function(req,res) {
 

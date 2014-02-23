@@ -37,7 +37,7 @@ module.exports = function(grunt) {
     },
     watch: {
       coffee: {
-        files: ['src/coffee/*', 'src/stylus/*', 'Gruntfile.js'],
+        files: ['src/coffee/**/**/*.coffee', 'src/stylus/**/**/*.styl', 'Gruntfile.js'],
         tasks: ['build']
       }
     },
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
             }
         },
         build: {
-            tasks: ['coffee:dev', 'stylus'],
+            tasks: ['coffee:dev', 'stylus:compile'],
             options: {
               logConcurrentOutput: true
             }
@@ -75,6 +75,7 @@ module.exports = function(grunt) {
       }
     },
     stylus: {
+      compile: {
         options: {
             compress: true,
             use: [
@@ -85,6 +86,7 @@ module.exports = function(grunt) {
         files: {
             'public/css/<%= pkg.name %>.css': ['src/stylus/*.styl']
         }
+      }  
     }
   });
 

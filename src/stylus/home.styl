@@ -1,0 +1,50 @@
+@import('nib')
+
+*
+	box-sizing border-box
+
+body
+	margin 0
+	padding 0
+#home-slide-show
+	> div
+		width: 100%
+		background-size cover
+		position relative
+	overflow auto
+
+#splashPage
+	background-image url('/img/desert.jpg')
+	background-repeat no-repeat
+	color black
+
+#aboutPage	
+	background-color black
+	color white
+
+#contactPage
+	background-color #eee
+	color black
+
+#blogPage
+	background-color white
+	color black
+
+#slideNav
+	position absolute
+	left: 5%
+	bottom: 5%
+	padding-left: 20px
+	font-family 'Hammersmith One', sans-serif
+	> p
+		cursor pointer
+		opacity 0.3
+	> p:hover
+			opacity 1.0
+
+.full-opacity
+	opacity 1.0 !important
+
+.row
+	clearfix()
+

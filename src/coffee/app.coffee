@@ -25,7 +25,6 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 			parent: 'blog'
 			templateUrl: 'blog/page'
 			onEnter: ['$stateParams', 'postalService', ($stateParams, postalService) ->
-				console.log($stateParams.posturl)
 				postalService.retrievePostData $stateParams.posturl
 			]
 		

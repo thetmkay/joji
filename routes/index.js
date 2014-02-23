@@ -19,3 +19,8 @@ exports.home = function(req, res) {
 	var name = req.params.name;
 	res.render('home/' + name);
 };
+
+exports.slides = function(req, res) {
+	var name = req.params.name;
+	res.render('home/slides/' + name)
+}
