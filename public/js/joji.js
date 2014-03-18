@@ -33174,6 +33174,7 @@ angular.module('ui.router.compat')
         _deferred = $q.defer();
         _post.url = url;
         $http.get('/api/getpost/' + url).success(function(data, status) {
+          console.log('retrieved');
           _post = {
             url: data.url,
             content: data.content,
@@ -33185,6 +33186,19 @@ angular.module('ui.router.compat')
           };
           return _deferred.resolve(_post);
         });
+      };
+      return this;
+    }
+  ]);
+
+  if (!services) {
+    services = angular.module('joji.services', []);
+  }
+
+  services.service('linkPostalService', [
+    function() {
+      this.setSloppyNotesLinkFn = function(linkFn) {
+        this.linkSloppyNotes = linkFn;
       };
       return this;
     }
@@ -33240,11 +33254,65 @@ angular.module('ui.router.compat')
         replace: false,
         templateUrl: 'blog/post',
         link: function(scope, element, attrs) {
-          var _this = this;
-          console.log('dddddd');
+          var $elem, $parent, note_selector, _linkSloppyNotes,
+            _this = this;
+          note_selector = '.sloppy-note';
+          $parent = angular.element(element.context.parentNode);
+          $elem = angular.element(element);
+          _linkSloppyNotes = function() {
+            var $content, $index, $notes, $target;
+            $target = $parent.find('sloppy-note');
+            $content = $target.find('#target-sloppy-note-content');
+            $index = $target.find('#target-sloppy-note-index');
+            $notes = element.find(note_selector);
+            console.log($notes);
+            angular.forEach($notes, function(note, index) {
+              var $note;
+              $note = angular.element(note);
+              $note.data('index', index);
+              $note.on('click', function() {
+                $content.html($note.data('content'));
+                $index.html(index);
+                return $target.show();
+              });
+            });
+          };
           postalService.getPost($stateParams.posturl).then(function(post) {
-            element.find("#postContent").html(post.content);
+            var postContent;
+            postContent = '<a class="sloppy-note" data-content="hihihih">yoyoyo</div>';
+            element.find("#postContent").html(postContent);
             element.find("#postTitle").html(post.title);
+            _linkSloppyNotes();
+          });
+        }
+      };
+    }
+  ]);
+
+  if (!directives) {
+    directives = angular.module('directives', []);
+  }
+
+  directives.directive('sloppyNote', [
+    function() {
+      return {
+        replace: false,
+        restrict: 'E',
+        templateUrl: 'blog/sloppynote',
+        link: function(scope, elem, attrs) {
+          var $content, $index, $notes, $target, note_selector;
+          note_selector = '.sloppy-note';
+          $target = angular.element(elem);
+          $content = $target.find('#target-sloppy-note-content');
+          $index = $target.find('#target-sloppy-note-index');
+          $notes = $target.parent().children(note_selector);
+          angular.forEach($notes, function($note, index) {
+            $note.data('index').data(index);
+            return $note.on('click', function() {
+              $content.html($note.data('content'));
+              $index.html(index);
+              return $target.show();
+            });
           });
         }
       };
@@ -33324,25 +33392,26 @@ angular.module('ui.router.compat')
           $scope.slide_index = 0;
           this.changeIndex = function(index) {
             $scope.slide_index = index;
-            $scope.changePage();
+            $scope.$apply();
           };
           this.getIndex = function() {
             return $scope.slide_index;
           };
         },
         link: function(scope, element, attrs) {
-          var $elem, $scrollElem, $scrollWindow, $this, changeIndex, changePage, clear, last_page, scrollStop;
+          var $this, changeIndex, changePage, clear, last_page, roundedScrolling, scrollStop, scroll_pos, stayOnPage;
+          $this = angular.element(element);
+          console.log(element);
           scope.setWindowSize = function() {
             scope.height = $window.innerHeight;
             scope.width = $window.innerWidth;
+            $this.height(scope.height);
+            $this.width(scope.width);
+            stayOnPage();
           };
-          scope.setWindowSize();
           last_page = 3;
-          $elem = angular.element($elem);
-          $scrollWindow = angular.element($window);
-          console.log($);
-          $scrollElem = $("html,body");
-          $this = angular.element(element);
+          scroll_pos = 0;
+          $this.data('scrolling', 0);
           clear = function() {
             if ($this.data('scrollTimeout')) {
               clearTimeout($this.data('scrollTimeout'));
@@ -33356,39 +33425,50 @@ angular.module('ui.router.compat')
               target_index = Math.min(target_index, last_page);
               target_index = Math.max(target_index, 0);
               scope.slide_index = target_index;
+              scope.$apply();
+            } else {
+              changePage();
             }
           };
           changePage = function() {
             var current, target, time;
-            current = $scrollWindow.scrollTop();
+            current = $this.scrollTop();
             target = scope.slide_index * scope.height;
             time = 250 * Math.ceil(Math.abs((current - target) / scope.height));
-            $scrollElem.animate({
+            $this.animate({
               'scrollTop': '' + target + 'px'
             }, time, clear);
+          };
+          stayOnPage = function() {
+            var target;
+            target = scope.slide_index * scope.height;
+            $this.scrollTop(target);
+          };
+          roundedScrolling = function(start, end, height) {
+            if (end - start > height) {
+              return Math.round((end - start) / height);
+            } else if (end - start > 100) {
+              return 1;
+            }
+            if (end - start < -height) {
+              return Math.round((end - start) / height);
+            } else if (end - start < -100) {
+              return -1;
+            }
+            return 0;
           };
           scrollStop = function() {
             var amount_of_pages, end, start;
             start = $this.data('scrollStart');
-            end = $scrollWindow.scrollTop();
-            if (end - start > scope.height) {
-              amount_of_pages = Math.round((end - start) / scope.height);
-            } else if (end - start > 100) {
-              amount_of_pages = 1;
-            }
-            if (end - start < -scope.height) {
-              amount_of_pages = Math.round((end - start) / scope.height);
-            } else if (end - start < -100) {
-              amount_of_pages = -1;
-            }
+            end = $this.scrollTop();
+            amount_of_pages = roundedScrolling(start, end, scope.height);
             changeIndex(amount_of_pages);
-            changePage();
           };
-          $scrollWindow.scroll(function() {
+          $this.scroll(function() {
             if ($this.data('scrollTimeout')) {
               clearTimeout($this.data('scrollTimeout'));
             } else {
-              $this.data('scrollStart', $scrollWindow.scrollTop());
+              $this.data('scrollStart', $this.scrollTop());
             }
             return $this.data('scrollTimeout', setTimeout(scrollStop, 100, element));
           });
@@ -33396,7 +33476,19 @@ angular.module('ui.router.compat')
             scope.setWindowSize();
             scope.$apply();
           });
-          scope.changePage = changePage;
+          angular.element($window).bind('keydown', function(event) {
+            event.stopPropagation();
+            if (event.which === 40 || event.which === 34) {
+              changeIndex(1);
+            }
+            if (event.which === 38 || event.which === 33) {
+              return changeIndex(-1);
+            }
+          });
+          scope.$watch('slide_index', function() {
+            return changePage();
+          });
+          scope.setWindowSize();
         }
       };
     }

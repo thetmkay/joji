@@ -3,31 +3,52 @@
 *
 	box-sizing border-box
 
-body
+body,html
 	margin 0
 	padding 0
+	overflow hidden
+
 #home-slide-show
 	> div
 		width: 100%
-		background-size cover
 		position relative
+		color #aaa
+		z-index 3
 	overflow auto
+	
 
-#splashPage
-	background-image url('/img/desert.jpg')
+#background-image
+	background-size cover
 	background-repeat no-repeat
-	color black
+	color white
+	position fixed
+	left 0
+	right 0
+	bottom 0
+	top 0
+
+@media only screen and (max-width: 480px)
+	#background-image
+		background-image url('/img/sandboxsmall.jpg')
+
+#test
+	color red
+
+@media only screen and (min-width: 480px) and (max-width: 640px)
+	#background-image
+		background-image url('/img/sandboxmedium.jpg')
 
 #aboutPage	
-	background-color black
 	color white
 
+@media only screen and (min-width: 640px)
+	#background-image
+		background-image url('/img/sandboxlarge.jpg')
+
 #contactPage
-	background-color #eee
-	color black
+	color #aaa
 
 #blogPage
-	background-color white
 	color black
 
 #slideNav
