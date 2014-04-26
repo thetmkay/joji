@@ -33,4 +33,35 @@ exports.getPost = function (postKey, callback) {
 			});		
 		});
 	});
+};
+
+exports.getPosts = function(callback) {
+	console.log('getting posts');
+	posts = [
+		{
+			title: 'My first day on the job',
+			url: 'my-first-day-on-the-job',
+			tldr: 'a summary of the things that went on my first day',
+			image: '/img/desert.jpg',
+			date: '09/04/14',
+			author: 'GN'
+		},
+		{
+			title: 'This is a test',
+			url: 'this-is-a-test',
+			tldr: 'blah blah blah blah blah blah',
+			image: '/img/sandboxlarge.jpg',
+			date: '08/04/14',
+			author: 'GN'
+		},
+		{
+			title: 'What a wonderful world this is when the titles are longer than they should be',
+			url: 'hello-world',
+			tldr: 'poetry in motion tralalalalalalalallalalalalalalalaallalalalalalla',
+			image: '/img/sandboxmedium.jpg',
+			date: '10/04/14',
+			author: 'GN'
+		}
+	];
+	callback({},posts);
 }

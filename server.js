@@ -52,6 +52,7 @@ app.get('/home/slides/:name', routes.slides)
 // JSON API
 app.get('/api/name', api.name);
 app.get('/api/getpost/:url', api.getPost);
+app.get('/api/getposts', api.getPosts);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);

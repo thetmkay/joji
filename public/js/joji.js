@@ -33158,7 +33158,7 @@ angular.module('ui.router.compat')
     services = angular.module('joji.services', []);
   }
 
-  services.service('postalService', [
+  services.service('getPostService', [
     '$http', '$q', function($http, $q) {
       var _deferred, _post,
         _this = this;
@@ -33195,7 +33195,31 @@ angular.module('ui.router.compat')
     services = angular.module('joji.services', []);
   }
 
-  services.service('linkPostalService', [
+  services.service('getPostsService', [
+    '$http', '$q', function($http, $q) {
+      var _deferred, _posts,
+        _this = this;
+      _posts = [];
+      _deferred = void 0;
+      this.getPosts = function() {
+        _deferred = $q.defer();
+        $http.get('/api/getposts/').success(function(data, status) {
+          console.log('posts');
+          console.log(data);
+          _posts = data;
+          return _deferred.resolve(_posts);
+        });
+        return _deferred.promise;
+      };
+      return this;
+    }
+  ]);
+
+  if (!services) {
+    services = angular.module('joji.services', []);
+  }
+
+  services.service('linkPostService', [
     function() {
       this.setSloppyNotesLinkFn = function(linkFn) {
         this.linkSloppyNotes = linkFn;
@@ -33216,8 +33240,31 @@ angular.module('ui.router.compat')
     directives = angular.module('joji.directives', []);
   }
 
+  directives.directive('blogList', [
+    'getPostsService', function(getPostsService) {
+      return {
+        replace: true,
+        restrict: 'E',
+        scope: true,
+        templateUrl: 'blog/list',
+        link: function(scope, elem, attrs) {
+          var _this = this;
+          scope.posts = [];
+          getPostsService.getPosts().then(function(posts) {
+            console.log('deferred');
+            scope.posts = posts;
+          });
+        }
+      };
+    }
+  ]);
+
+  if (!directives) {
+    directives = angular.module('joji.directives', []);
+  }
+
   directives.directive('blogNav', [
-    'postalService', '$stateParams', function(postalService, $stateParams) {
+    'getPostService', '$stateParams', function(postalService, $stateParams) {
       return {
         restrict: 'E',
         scope: true,
@@ -33247,7 +33294,7 @@ angular.module('ui.router.compat')
   }
 
   directives.directive('blogPost', [
-    'postalService', '$stateParams', function(postalService, $stateParams) {
+    'getPostService', '$stateParams', function(postalService, $stateParams) {
       return {
         restrict: 'E',
         scope: true,
@@ -33526,18 +33573,15 @@ angular.module('ui.router.compat')
 
   app.config([
     '$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/');
-      $stateProvider.state('home', {
-        url: '/',
-        templateUrl: 'home/main'
-      }).state('blog', {
+      $urlRouterProvider.otherwise('/blog');
+      $stateProvider.state('blog', {
         url: '/blog',
         abstract: true,
         template: "<ui-view/>"
       }).state('blog.list', {
         url: '',
         parent: 'blog',
-        templateUrl: 'blog/list'
+        templateUrl: 'blog/home'
       }).state('blog.post', {
         url: '/post/:posturl',
         parent: 'blog',

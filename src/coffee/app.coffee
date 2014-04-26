@@ -6,12 +6,12 @@ app = angular.module 'joji', [
 	'ngResource'
 ]
 app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider,$stateProvider,$urlRouterProvider) ->
-	$urlRouterProvider.otherwise '/'
+	$urlRouterProvider.otherwise '/blog'
 
 	$stateProvider
-		.state 'home',
-			url: '/'
-			templateUrl: 'home/main'
+		# .state 'home',
+		# 	url: '/'
+		# 	templateUrl: 'home/main'
 		.state 'blog',
 			url: '/blog'
 			abstract: true
@@ -19,7 +19,7 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 		.state 'blog.list', 
 			url: ''
 			parent: 'blog'
-			templateUrl: 'blog/list'
+			templateUrl: 'blog/home'
 		.state 'blog.post', 
 			url: '/post/:posturl'
 			parent: 'blog'

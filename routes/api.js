@@ -15,8 +15,14 @@ exports.getPost = function(req,res) {
 	mongo.getPost(postKey, function(err,result) {
 		console.log(result);
 		res.json(result);
-	})
+	});
 };
+
+exports.getPosts = function(req,res) {
+	mongo.getPosts(function(err,result) {
+		res.json(result);
+	});
+}
 
 exports.name = function(req,res) {
 

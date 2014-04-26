@@ -1,6 +1,6 @@
 services = angular.module 'joji.services', [] if !services
 
-services.service 'postalService', ['$http', '$q', ($http, $q) ->
+services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 	_post = {}
 	_deferred = undefined
 
@@ -12,7 +12,7 @@ services.service 'postalService', ['$http', '$q', ($http, $q) ->
 	this.retrievePostData = (url) =>
 		_deferred = $q.defer()
 		_post.url = url
-		#deal with error case
+		#TODO deal with error case
 		$http.get('/api/getpost/' + url).success (data,status) =>
 			console.log 'retrieved'
 			_post = 

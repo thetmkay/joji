@@ -1,6 +1,6 @@
 services = angular.module 'joji.services', [] if !services
 
-services.service 'linkPostalService', [() ->
+services.service 'linkPostService', [() ->
 	this.setSloppyNotesLinkFn = (linkFn) ->
 		this.linkSloppyNotes = linkFn
 		return

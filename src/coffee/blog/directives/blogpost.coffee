@@ -1,6 +1,6 @@
 directives = angular.module 'joji.directives', [] if !directives
 
-directives.directive 'blogPost', ['postalService', '$stateParams', (postalService, $stateParams) -> 
+directives.directive 'blogPost', ['getPostService', '$stateParams', (postalService, $stateParams) -> 
 	restrict: 'E'
 	scope: true
 	replace: false
