@@ -8,14 +8,14 @@ services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 		if url isnt _post.url
 			this.testPageContent url
 		return _deferred.promise
-			
+
 	this.retrievePostData = (url) =>
 		_deferred = $q.defer()
 		_post.url = url
 		#TODO deal with error case
 		$http.get('/api/getpost/' + url).success (data,status) =>
 			console.log 'retrieved'
-			_post = 
+			_post =
 				url: data.url
 				content: data.content
 				title: data.title
@@ -23,7 +23,6 @@ services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 				prev_title: data.prev_title
 				next_url: data.next_url
 				next_title: data.next_title
-
 			_deferred.resolve(_post);
 		return
 	return this

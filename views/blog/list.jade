@@ -1,3 +1,6 @@
+//- #bloglist
+//- 	.blogpost-link.show-contents-on-hover(ng-repeat="post in posts")(style="background-image:url('{{post.image}}'); color={{post.color}};")
+//- 		p {{post.title}}
+
 #bloglist
-	.blogpost-link.show-contents-on-hover(ng-repeat="post in posts")(style="background-image:url('{{post.image}}'); color={{post.color}};")
-		p {{post.title}}
+	blog-slug(ng-repeat="post in posts", for-post="post")
