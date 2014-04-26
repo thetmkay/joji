@@ -28,9 +28,9 @@ exports.getPost = function (postKey, callback) {
 					data.next_url = next.url;
 					data.next_title = next.title;
 				}
-				
+
 				callback(err,data);
-			});		
+			});
 		});
 	});
 };
@@ -44,7 +44,9 @@ exports.getPosts = function(callback) {
 			tldr: 'a summary of the things that went on my first day',
 			image: '/img/desert.jpg',
 			date: '09/04/14',
-			author: 'GN'
+			author: 'GN',
+			color: 'red',
+			text_color: 'white'
 		},
 		{
 			title: 'This is a test',
@@ -52,7 +54,9 @@ exports.getPosts = function(callback) {
 			tldr: 'blah blah blah blah blah blah',
 			image: '/img/sandboxlarge.jpg',
 			date: '08/04/14',
-			author: 'GN'
+			author: 'GN',
+			color: 'blue',
+			text_color: 'white'
 		},
 		{
 			title: 'What a wonderful world this is when the titles are longer than they should be',
@@ -60,7 +64,9 @@ exports.getPosts = function(callback) {
 			tldr: 'poetry in motion tralalalalalalalallalalalalalalalaallalalalalalla',
 			image: '/img/sandboxmedium.jpg',
 			date: '10/04/14',
-			author: 'GN'
+			author: 'GN',
+			color: 'black',
+			text_color: 'white'
 		}
 	];
 	callback({},posts);

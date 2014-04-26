@@ -1,6 +1,6 @@
 app = angular.module 'joji', [
-	'joji.controllers', 
-	'joji.services', 
+	'joji.controllers',
+	'joji.services',
 	'joji.directives',
 	'ui.router',
 	'ngResource'
@@ -16,18 +16,18 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 			url: '/blog'
 			abstract: true
 			template: "<ui-view/>"
-		.state 'blog.list', 
+		.state 'blog.list',
 			url: ''
 			parent: 'blog'
 			templateUrl: 'blog/home'
-		.state 'blog.post', 
+		.state 'blog.post',
 			url: '/post/:posturl'
 			parent: 'blog'
 			templateUrl: 'blog/page'
-			onEnter: ['$stateParams', 'postalService', ($stateParams, postalService) ->
-				postalService.retrievePostData $stateParams.posturl
+			onEnter: ['$stateParams', 'getPostService', ($stateParams, getPostService) ->
+				getPostService.retrievePostData $stateParams.posturl
 			]
-		
+
 
 	$locationProvider.html5Mode true
 ]

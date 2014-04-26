@@ -1,2 +1,4 @@
 node_modules/**/*
 config.js
+public/css
+public/js/*.js

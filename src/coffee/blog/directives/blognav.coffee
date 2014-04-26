@@ -1,13 +1,13 @@
 directives = angular.module 'joji.directives', [] if !directives
 
-directives.directive 'blogNav', ['getPostService', '$stateParams', (postalService, $stateParams) -> 
+directives.directive 'blogNav', ['getPostService', '$stateParams', (getPostService, $stateParams) ->
 	restrict: 'E'
 	scope: true
 	replace: false
 	templateUrl: 'blog/navmenu'
 	link: (scope,element,attrs) ->
 		console.log('bbbbbbb')
-		postalService.getPost($stateParams.posturl).then (post)=>
+		getPostService.getPost($stateParams.posturl).then (post)=>
 			console.log(post);
 			if(post.prev_url)
 				scope.prev_url = post.prev_url

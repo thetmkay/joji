@@ -1,6 +1,6 @@
 directives = angular.module 'joji.directives', [] if !directives
 
-directives.directive 'blogPost', ['getPostService', '$stateParams', (postalService, $stateParams) -> 
+directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostService, $stateParams) ->
 	restrict: 'E'
 	scope: true
 	replace: false
@@ -27,7 +27,7 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (postalServi
 				return
 			return
 
-		postalService.getPost($stateParams.posturl).then (post)=>
+		getPostService.getPost($stateParams.posturl).then (post)=>
 			postContent  = '<a class="sloppy-note" data-content="hihihih">yoyoyo</div>'
 			element.find("#postContent").html(postContent)
 			element.find("#postTitle").html(post.title)
