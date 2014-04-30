@@ -28,7 +28,7 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			return
 
 		getPostService.getPost($stateParams.posturl).then (post)=>
-			postContent  = '<a class="sloppy-note" data-content="hihihih">yoyoyo</div>'
+			postContent  = "<p>Hello my name is George and this is something I'm really passionate <a href='www.bbc.com'>about</a></p><p>Although the truth of the matter is that abladfjklasjdkfl; lksdjfklasks sljf akjsdfa lsjfkldsljkafks lkaskjdfklj</p>"
 			element.find("#postContent").html(postContent)
 			element.find("#postTitle").html(post.title)
 			_linkSloppyNotes()
