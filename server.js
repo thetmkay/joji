@@ -6,13 +6,12 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path'),
-  config = require('./config');
+  path = require('path');
 
 var app = module.exports = express();
 
 console.log(process.env.user);
-
+console.log(process.env);
 api.setDb("mongodb://" + process.env.user + ":" + process.env.password + "@troup.mongohq.com:10017/jojidb");
 
 
