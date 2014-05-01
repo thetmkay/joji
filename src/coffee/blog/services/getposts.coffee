@@ -7,8 +7,6 @@ services.service 'getPostsService', ['$http', '$q', ($http, $q) ->
 	this.getPosts = () =>
 		_deferred = $q.defer()
 		$http.get('/api/getposts/').success (data,status) =>
-			console.log 'posts'
-			console.log data
 			_posts = data
 			_deferred.resolve(_posts);
 		return _deferred.promise

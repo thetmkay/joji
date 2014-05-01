@@ -13,12 +13,14 @@ var app = module.exports = express();
 
 if(process.env.NODE_ENV === 'development') {
   app.use(express.errorHandler());
+  console.log('hello');
   var config = require('./config');
   credentials.user = config.user;
   credentials.password = config.password;
 }
 
 if(process.env.NODE_ENV === 'production') {
+	console.log(production);
 	credentials.user = process.env.user;
   	credentials.password = process.env.password;
 }

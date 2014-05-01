@@ -2,6 +2,14 @@ module.exports = function(grunt) {
 
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    env: {
+      dev:  {
+        NODE_ENV: 'development'
+      },
+      prod: {
+        NODE_ENV: 'production'
+      }
+    },
     concat: {
       options: {
         separator: ';'
@@ -58,12 +66,6 @@ module.exports = function(grunt) {
               logConcurrentOutput: true
             }
         },
-        prod: {
-          tasks: ['nodemon:prod', 'watch'],
-            options: {
-              logConcurrentOutput: true
-            }
-        },
         build: {
             tasks: ['coffee:dev', 'stylus:compile'],
             options: {
@@ -74,20 +76,10 @@ module.exports = function(grunt) {
     nodemon: {
       dev: {
           script: 'server.js',
-          env: {
-            NODE_ENV: 'development'
-          },
           ignoredFiles: ['README.md', '.gitignore','node_modules/**', 'public/**', 'bower_components/**/*'],
           options: {
             nodeArgs: ['--debug']
           }
-      },
-      prod: {
-        script: 'server.js',
-        env: {
-          NODE_ENV: 'production'
-        },
-        ignoredFiles: ['README.md', '.gitignore','node_modules/**', 'public/**', 'bower_components/**/*'],
       }
     },
     stylus: {
@@ -113,11 +105,12 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-stylus');
   grunt.loadNpmTasks('grunt-contrib-coffee');
   grunt.loadNpmTasks('grunt-nodemon');
+  grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-concurrent');
 
   grunt.registerTask('test', ['jshint']);
   grunt.registerTask('build', ['concurrent:build', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('production', ['build', 'concurrent:prod']);
-  grunt.registerTask('default', ['build','concurrent:dev']);
+  grunt.registerTask('production', ['build', 'env:prod','concurrent']);
+  grunt.registerTask('default', ['build','env:dev','concurrent']);
 
 };

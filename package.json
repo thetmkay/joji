@@ -23,11 +23,12 @@
     "stylus": "~0.42.1",
     "coffee": "0.0.1",
     "grunt-nodemon": "~0.2.0",
-    "grunt-concurrent": "~0.4.3"
+    "grunt-concurrent": "~0.4.3",
+    "grunt-env": "^0.4.1"
   },
   "scripts": {
     "test": "grunt test"
   },
   "author": "George Nishimura",
-  "git": "https://github.com/thetmkay/joji"
+  "git": "https://github.com/thetmkay/joji",
 }
