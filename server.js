@@ -11,7 +11,9 @@ var express = require('express'),
 
 var app = module.exports = express();
 
-api.setDb("mongodb://" + config.user + ":" + config.password + "@troup.mongohq.com:10017/jojidb");
+console.log(process.env.user);
+
+api.setDb("mongodb://" + process.env.user + ":" + process.env.password + "@troup.mongohq.com:10017/jojidb");
 
 
 
