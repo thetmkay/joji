@@ -6,13 +6,29 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  credentials = {};
 
 var app = module.exports = express();
 
-console.log(process.env.user);
-console.log(process.env);
+app.configure('development', function() {
+  app.use(express.errorHandler());
+  var config = require('./config');
+  credentials.user = config.user;
+  credentials.password = config.password;
+});
+
+app.configure('production', function() {
+	credentials.user = process.env.user;
+  	credentials.password = process.env.password;
+});
+
+console.log(credentials);
+
 api.setDb("mongodb://" + process.env.user + ":" + process.env.password + "@troup.mongohq.com:10017/jojidb");
+
+// console.log(process.env);
+
 
 
 
@@ -31,14 +47,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(app.router);
 
 // development only
-if (app.get('env') === 'development') {
-  app.use(express.errorHandler());
-}
 
-// production only
-if (app.get('env') === 'production') {
-  // TODO
-};
 
 
 /**

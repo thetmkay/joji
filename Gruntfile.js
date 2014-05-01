@@ -48,12 +48,18 @@ module.exports = function(grunt) {
             },
             files: {
                 'src/js/coffee.js':['src/coffee/**/services/*.coffee','src/coffee/**/controllers/*.coffee','src/coffee/**/directives/*.coffee','src/coffee/app.coffee']
-            }  
+            }
         }
     },
     concurrent : {
         dev: {
-            tasks: ['nodemon', 'watch'],
+            tasks: ['nodemon:dev', 'watch'],
+            options: {
+              logConcurrentOutput: true
+            }
+        },
+        prod: {
+          tasks: ['nodemon:prod', 'watch'],
             options: {
               logConcurrentOutput: true
             }
@@ -66,12 +72,22 @@ module.exports = function(grunt) {
         }
     },
     nodemon: {
-        dev: {
-            script: 'server.js',
-            ignoredFiles: ['README.md', '.gitignore','node_modules/**', 'public/**', 'bower_components/**/*'],
-            options: {
-              nodeArgs: ['--debug']
-            }
+      dev: {
+          script: 'server.js',
+          env: {
+            NODE_ENV: 'development'
+          },
+          ignoredFiles: ['README.md', '.gitignore','node_modules/**', 'public/**', 'bower_components/**/*'],
+          options: {
+            nodeArgs: ['--debug']
+          }
+      },
+      prod: {
+        script: 'server.js',
+        env: {
+          NODE_ENV: 'production'
+        },
+        ignoredFiles: ['README.md', '.gitignore','node_modules/**', 'public/**', 'bower_components/**/*'],
       }
     },
     stylus: {
@@ -86,7 +102,7 @@ module.exports = function(grunt) {
         files: {
             'public/css/<%= pkg.name %>.css': ['src/stylus/*.styl']
         }
-      }  
+      }
     }
   });
 
@@ -101,6 +117,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jshint']);
   grunt.registerTask('build', ['concurrent:build', 'jshint', 'concat', 'uglify']);
+  grunt.registerTask('production', ['build', 'concurrent:prod']);
   grunt.registerTask('default', ['build','concurrent:dev']);
 
 };
