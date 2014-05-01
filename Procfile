@@ -1,1 +1,1 @@
-web: ./node_modules/grunt-cli/bin/grunt 
+web: ~/.npm/grunt-cli/0.1.13/package/bin/grunt
