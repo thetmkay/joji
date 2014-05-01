@@ -24,7 +24,7 @@
     "coffee": "0.0.1",
     "grunt-nodemon": "~0.2.0",
     "grunt-concurrent": "~0.4.3",
-    "grunt-env": "~0.4.1"
+    "grunt-env": "0.4.x"
   },
   "scripts": {
     "test": "grunt test"
