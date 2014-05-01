@@ -11,21 +11,21 @@ var express = require('express'),
 
 var app = module.exports = express();
 
-app.configure('development', function() {
+if(process.env.NODE_ENV === 'development') {
   app.use(express.errorHandler());
   var config = require('./config');
   credentials.user = config.user;
   credentials.password = config.password;
-});
+}
 
-app.configure('production', function() {
+if(process.env.NODE_ENV === 'production') {
 	credentials.user = process.env.user;
   	credentials.password = process.env.password;
-});
+}
 
 console.log(credentials);
 
-api.setDb("mongodb://" + process.env.user + ":" + process.env.password + "@troup.mongohq.com:10017/jojidb");
+api.setDb("mongodb://" + credentials.user + ":" + credentials.password + "@troup.mongohq.com:10017/jojidb");
 
 // console.log(process.env);
 
