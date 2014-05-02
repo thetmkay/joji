@@ -11,6 +11,10 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 
 		$parent = angular.element element.context.parentNode
 		$elem = angular.element element
+
+		_unescape = (html) ->
+			return $('<div/>').html(html).text();
+
 		_linkSloppyNotes = () ->
 			$target = $parent.find('sloppy-note')
 			$content = $target.find('#target-sloppy-note-content')
@@ -21,16 +25,19 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 				$note = angular.element note
 				$note.data 'index', index
 				$note.on 'click', () ->
-					$content.html $note.data('content')
+					$content.html _unescape($note.data('content'))
 					$index.html index
 					$target.show()
 				return
 			return
 
+
+
 		getPostService.getPost($stateParams.posturl).then (post)=>
 			# postContent  = "<p>Hello my name is George and this is something I'm really passionate <a href='www.bbc.com'>about</a></p><p>Although the truth of the matter is that abladfjklasjdkfl; lksdjfklasks sljf akjsdfa lsjfkldsljkafks lkaskjdfklj</p>"
 			element.find("#postContent").html(post.content)
 			element.find("#postTitle").html(post.title)
+			scope.img_header = post.image;
 			_linkSloppyNotes()
 			return
 		return

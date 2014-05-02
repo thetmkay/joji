@@ -8,7 +8,7 @@ var api = require('./routes/api'),
     credentials = {},
     path = require('path'),
     credentials = require('./config'),
-    cheerio = require('cheerio');
+    marked = require('./marked');
 
 
 api.setDb("mongodb://" + credentials.user + ":" + credentials.password + "@troup.mongohq.com:10017/jojidb");
@@ -17,14 +17,14 @@ var check_file = function(file) {
   return fs.existsSync(path.join(__dirname, file));
 };
 
-var posts_final_path = path.join('posts','final')
+var posts_drafts_path = path.join('posts','drafts')
 
 var check_url = function(file_name) {
-  return check_file(path.join(posts_final_path, file_name + ".html"));
+  return check_file(path.join(posts_drafts_path, file_name + ".md"));
 };
 
 var check_image = function(img_name) {
-  return check_file(path.join('public', 'img', img_name)) || img_name.match(/^http:\/\/i\.imgur\.com.*$/);
+  return check_file(path.join('public', 'img', img_name)) || img_name.match(/^(https?:\/\/)+i\.imgur\.com.*$/);
 };
 
 prompt.start();
@@ -65,6 +65,7 @@ var send_post_to_db = function(file_path, post) {
   api.addPost(post);
 };
 
+
 prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
   if(!err) {
 
@@ -76,9 +77,8 @@ prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
         date_json.setYear(parseInt(date_arr[2]));
         date_json = date_json.toJSON();
 
-    var file_content = fs.readFileSync(path.join(__dirname, posts_final_path, result.url + ".html"), {encoding:'utf8'}),
-        $ = cheerio.load(file_content),
-        post_content = $('body').html(),
+    var file_content = fs.readFileSync(path.join(__dirname, posts_drafts_path, result.url + ".md"), {encoding:'utf8'}),
+        post_content = marked(file_content),
         file_path = path.join(__dirname, 'posts', 'json', result.url + '.json'),
         post_json = {
           url: result.url,
@@ -90,9 +90,9 @@ prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
         };
 
     console.log(post_content);
-    console.log(path.join(posts_final_path, result.url + ".html"));
+    // console.log(path.join(posts_final_path, result.url + ".html"));
 
-
+    fs.writeFileSync(path.join(__dirname, 'posts', 'drafts', result.url + ".html"), post_content, {encoding:'utf8'});
 
     if(fs.existsSync(file_path)) {
      var old_json_string = fs.readFileSync(file_path, {encoding:'utf8'});
