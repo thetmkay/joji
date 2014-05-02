@@ -6,7 +6,7 @@ services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 
 	this.getPost = (url) =>
 		if url isnt _post.url
-			this.testPageContent url
+			return this.retrievePostData(url)
 		return _deferred.promise
 
 	this.retrievePostData = (url) =>

@@ -16,6 +16,8 @@
 		line-height 1em
 		vertical-align middle
 		font-size 50px
+		font-family 'Montserrat'
+		font-weight 700
 
 .blogpost-link:hover
 	background-image none !important
@@ -32,6 +34,9 @@
 	-webkit-margin-before: 0
 	-webkit-margin-after: 0
 
+.bold
+	font-weight bold
+
 body
 	margin 0
 	padding 0
@@ -41,48 +46,94 @@ body
 	padding 2em 1em
 	display	block
 	text-align center
-	div
+	background-color #222
+	.nav-links
 		width 36em
 		display inline-block
 		text-align left
-		a
+		margin-bottom 1em
+		p
 			display block
+			color white
+			a
+				font-family 'Montserrat'
+				padding .5em
+				color orange
+		a
+			color orange
+		> a
+			margin-top 1em
+.nav-sig
+	padding 2em
 
-a 
+#g-icon
+	display inline-block
+	background-image url('/img/george-logo-white.png')
+	-webkit-background-size contain
+	background-size contain
+	background-repeat no-repeat
+	width 50px
+	height 50px
+
+a
 	text-decoration none
+
+.blog-post a
 	color blue
 
-a:visited
+.blog-post a:visited
 	color blue
 
-a:hover
+.blog-post a:hover
 	color orange
 
 
 .blog-post
 	width 100%
-	padding 2em 0
+	padding 2em 0 0 0
 	text-align center
 	display block
 
 .blog-content
-	width 42em
+	max-width 42em
 	display inline-block
+
+.share-links
+	display inline-block
+	width 100%
+	padding-bottom 1em
+	text-align center
+	.qs-container
+		padding 1em
+		display inline-block
+		border-top dotted 2px #eee
+		.qs-link
+			padding 0 1em
+			color #aaa
+		.qs-link:hover
+			color orange
+
 
 .post-title
 	// text-decoration underline
-	font-family 'Hammersmith One'
+	font-family 'Montserrat'
+	font-weight 700
 	font-size 2em
-	border-bottom solid 2px black
+	margin .75em 0
+	// border-bottom solid 2px black
 	display	inline-block
 
 .post-content
-	padding 2em 1em
-	p 
+	padding 2em 1em 1em 1em
+	text-align left
+	p
 		margin 0 2em 1em 2em
 		text-align left
 	a
 		text-align left
+	h1,h2,h3,h4,h5,h6
+		margin 1em 0
+		padding-left 4em
 
 .blog-page
 	font-family 'Open Sans'

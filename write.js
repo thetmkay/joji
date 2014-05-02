@@ -7,7 +7,8 @@ var api = require('./routes/api'),
     prompt = require('prompt'),
     credentials = {},
     path = require('path'),
-    credentials = require('./config');
+    credentials = require('./config'),
+    cheerio = require('cheerio');
 
 
 api.setDb("mongodb://" + credentials.user + ":" + credentials.password + "@troup.mongohq.com:10017/jojidb");
@@ -23,7 +24,7 @@ var check_url = function(file_name) {
 };
 
 var check_image = function(img_name) {
-  return check_file(path.join('public', 'img', img_name));
+  return check_file(path.join('public', 'img', img_name)) || img_name.match(/^http:\/\/i\.imgur\.com.*$/);
 };
 
 prompt.start();
@@ -75,7 +76,9 @@ prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
         date_json.setYear(parseInt(date_arr[2]));
         date_json = date_json.toJSON();
 
-    var post_content = fs.readFileSync(path.join(__dirname, posts_final_path, result.url + ".html"), {encoding:'utf8'}),
+    var file_content = fs.readFileSync(path.join(__dirname, posts_final_path, result.url + ".html"), {encoding:'utf8'}),
+        $ = cheerio.load(file_content),
+        post_content = $('body').html(),
         file_path = path.join(__dirname, 'posts', 'json', result.url + '.json'),
         post_json = {
           url: result.url,

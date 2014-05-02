@@ -10,7 +10,7 @@ directives.directive 'blogSlug', [ '$state', ($state) ->
 		$elem = angular.element elem
 		$elem.click () ->
 			$state.go 'blog.post',
-				posturl: 'hello-world'
+				posturl: scope.post.url
 		$elem.mouseover () ->
 			$elem.find('div').addClass('show-on-hover');
 		$elem.mouseleave () ->

@@ -1,5 +1,8 @@
-div
-	a(href='blog/post/{{prev_url}}') previous: {{prev_title}}
-	a(href='blog/post/{{next_url}}') next: {{next_title}}
-	br
-	a(href='blog') back to list
+.nav-links
+	p(ng-show="prev_url") previous:
+		a(href='blog/post/{{prev_url}}')  {{prev_title}}
+	p(ng-show="next_url") next:
+		a(href='blog/post/{{next_url}}')  {{next_title}}
+	//- a(href='blog').bold back to list
+.nav-sig
+	a(href='/')#g-icon

@@ -32,6 +32,7 @@
   "author": "George Nishimura",
   "git": "https://github.com/thetmkay/joji",
   "devDependencies": {
-    "prompt": "^0.2.12"
+    "prompt": "^0.2.12",
+    "cheerio": "^0.15.0"
   }
 }
