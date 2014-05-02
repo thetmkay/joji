@@ -20,7 +20,10 @@ exports.getPost = function(req,res) {
 
 exports.getPosts = function(req,res) {
 	mongo.getPosts(function(err,result) {
-		res.json(result);
+		result.toArray(function(err,result) {
+			console.log(result);
+			res.json(result);
+		});
 	});
 };
 

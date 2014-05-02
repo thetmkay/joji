@@ -39,11 +39,12 @@ exports.getPosts = function(callback) {
 	console.log('getting posts');
 	var date_limit = new Date().getTime()
 	db.collection('posts').find(
-		{"date_shown":
-			{
-				$lte:date_limit
-			}
-		},
+		// {"date_shown":
+		// 	{
+		// 		$lte:date_limit
+		// 	}
+		// },
+		{},
 		{
 			title:true,
 			image:true,
