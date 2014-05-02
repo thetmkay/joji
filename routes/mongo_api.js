@@ -80,6 +80,12 @@ exports.getId = function(callback) {
 			if(arr.length > 0) {
 				callback(arr[arr.length-1].id);
 			}
+			else if(!err) {
+				callback(0);
+			}
+			else {
+				console.error(err);
+			}
 		})
 	});
 };
