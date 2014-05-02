@@ -37,37 +37,58 @@ exports.getPost = function (postKey, callback) {
 
 exports.getPosts = function(callback) {
 	console.log('getting posts');
-	posts = [
-		{
-			title: 'My first day on the job',
-			url: 'my-first-day-on-the-job',
-			tldr: 'a summary of the things that went on my first day',
-			image: '/img/desert.jpg',
-			date: '09/04/14',
-			author: 'GN',
-			color: 'red',
-			text_color: 'white'
+	var date_limit = new Date().getTime()
+	db.collection('posts').find(
+		{"date_shown":
+			{
+				$lte:date_limit
+			}
 		},
 		{
-			title: 'This is a test',
-			url: 'this-is-a-test',
-			tldr: 'blah blah blah blah blah blah',
-			image: '/img/sandboxlarge.jpg',
-			date: '08/04/14',
-			author: 'GN',
-			color: 'blue',
-			text_color: 'white'
+			title:true,
+			image:true,
+			url:true
 		},
 		{
-			title: 'What a wonderful world this is when the titles are longer than they should be',
-			url: 'hello-world',
-			tldr: 'poetry in motion tralalalalalalalallalalalalalalalaallalalalalalla',
-			image: '/img/sandboxmedium.jpg',
-			date: '10/04/14',
-			author: 'GN',
-			color: 'black',
-			text_color: 'white'
+			sort:"date_shown"
+		},
+		callback);
+};
+
+exports.addPost = function(post) {
+	var criteria = {
+		url: post.url
+	},
+		options = {
+			safe: true,
+			upsert: true
+	};
+
+	db.collection('posts').update(criteria, post, options, function(err,count) {
+		if(!err) {
+			console.log(count + " documents were successfully updated");
+		} else {
+			console.err("error adding post");
 		}
-	];
-	callback({},posts);
-}
+	});
+
+};
+
+exports.getId = function(callback) {
+	db.collection('posts').find({},{id:true}, {sort:'id'}, function(err, cursor) {
+		cursor.toArray(function(err,arr) {
+			if(arr.length > 0) {
+				callback(arr[arr.length-1].id);
+			}
+		})
+	});
+};
+
+//post will have
+//id
+//title
+//url
+//content
+//image
+//date-shown
+//date-created

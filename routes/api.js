@@ -22,8 +22,12 @@ exports.getPosts = function(req,res) {
 	mongo.getPosts(function(err,result) {
 		res.json(result);
 	});
-}
+};
 
-exports.name = function(req,res) {
+exports.addPost = function(post, callback) {
+	mongo.addPost(post);
+};
 
+exports.getId = function(callback) {
+	mongo.getId(callback);
 };
