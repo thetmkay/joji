@@ -1,3 +1,5 @@
-.blogpost-link.show-contents-on-hover(style="background-image:url('{{post.image}}');")
-	.title-container
-		p {{post.title}}
+.blogpost-link
+	.slug-date ({{post.date_stamp}})
+	.slug-link(style="background-image:url('{{post.image}}');")
+		.slug-container
+			p.slug-title {{post.title}}

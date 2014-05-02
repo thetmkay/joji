@@ -1,4 +1,7 @@
 .blogpost-link
+	width 100%
+
+.slug-link
 	min-height 8em
 	width 100%
 	background-repeat no-repeat
@@ -9,23 +12,37 @@
 	line-height 8em
 	cursor pointer
 	border-bottom solid 1px white
-	.title-container
-		padding 1em 0
-		display inline-block
-		visibility hidden
-		line-height 1em
-		vertical-align middle
-		font-size 50px
-		font-family 'Montserrat'
-		font-weight 700
 
-.blogpost-link:hover
+.slug-container
+	// padding 1em 0
+	display inline-block
+	visibility hidden
+	// line-height 1em
+	vertical-align middle
+	width 100%
+
+.slug-title
+	font-size 3em
+	font-family 'Montserrat'
+	font-weight 700
+	line-height 3em
+
+.slug-date
+	font-size 1em
+	display inline-block
+	font-family 'Open Sans'
+	font-weight bold
+	line-height 1em
+	padding .25em 0em .25em 2em
+	color white
+	background-color orange
+	width 100%
+
+.show-on-hover
+	visibility visible !important
 	background-image none !important
 	background-color black
 	color white
-
-.show-on-hover
-		visibility visible !important
 
 #bloglist
 	overflow-y scroll
@@ -94,6 +111,15 @@ a
 	text-align center
 	display block
 
+	a
+		color blue
+		font-weight bold
+	a:visited
+		color blue
+	a:hover
+		color orange
+
+
 .blog-content
 	max-width 42em
 	display inline-block
@@ -112,6 +138,7 @@ a
 			color #aaa
 		.qs-link:hover
 			color orange
+
 
 
 .post-title

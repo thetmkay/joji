@@ -12,8 +12,8 @@ directives.directive 'blogSlug', [ '$state', ($state) ->
 			$state.go 'blog.post',
 				posturl: scope.post.url
 		$elem.mouseover () ->
-			$elem.find('div').addClass('show-on-hover');
+			$elem.find('.slug-container').addClass('show-on-hover');
 		$elem.mouseleave () ->
-			$elem.find('div').removeClass('show-on-hover');
+			$elem.find('.slug-container').removeClass('show-on-hover');
 		return
 ]

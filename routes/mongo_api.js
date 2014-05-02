@@ -39,7 +39,7 @@ exports.getPosts = function(callback) {
 	console.log('getting posts');
 	var date_limit = new Date().getTime()
 	db.collection('posts').find(
-		// {"date_shown":
+		// {"shown_date":
 		// 	{
 		// 		$lte:date_limit
 		// 	}
@@ -49,10 +49,10 @@ exports.getPosts = function(callback) {
 			title:true,
 			image:true,
 			url:true,
-			date_shown: true
+			shown_date: true
 		},
 		{
-			sort:"date_shown"
+			sort:"shown_date"
 		},
 		callback);
 };
