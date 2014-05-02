@@ -23,7 +23,7 @@ if(process.env.NODE_ENV === 'production') {
   	credentials.password = process.env.password;
 }
 
-console.log(credentials);
+// console.log(credentials);
 
 api.setDb("mongodb://" + credentials.user + ":" + credentials.password + "@troup.mongohq.com:10017/jojidb");
 

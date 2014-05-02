@@ -7,7 +7,7 @@ directives.directive 'shareLinks', ['$stateParams','getPostService', ($statePara
 	templateUrl: 'blog/sharelinks'
 	link: (scope, elem, attrs) ->
 		getPostService.getPost($stateParams.posturl).then (post) ->
-			console.log(elem);
+			# console.log(elem);
 			$elem = angular.element(elem).find('.qs-container')
 			$elem.data('qs-title', $elem.data('qs-title') + post.title)
 			$elem.data('qs-url', $elem.data('qs-url') + post.url)
