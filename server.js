@@ -60,7 +60,6 @@ app.get('/blog/:name', routes.blog);
 app.get('/home/slides/:name', routes.slides)
 
 // JSON API
-app.get('/api/name', api.name);
 app.get('/api/getpost/:url', api.getPost);
 app.get('/api/getposts', api.getPosts);
 
