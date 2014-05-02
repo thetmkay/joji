@@ -1,1 +1,1 @@
-web: ./node_modules/grunt-cli/bin/grunt production
+web: ./node_modules/bower/bin/bower install && ./node_modules/grunt-cli/bin/grunt production
