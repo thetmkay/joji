@@ -19,7 +19,7 @@ var check_file = function(file) {
 var posts_final_path = path.join('posts','final')
 
 var check_url = function(file_name) {
-  return check_file(path.join(posts_final_path, file_name + ".md"));
+  return check_file(path.join(posts_final_path, file_name + ".html"));
 };
 
 var check_image = function(img_name) {
@@ -75,7 +75,7 @@ prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
         date_json.setYear(parseInt(date_arr[2]));
         date_json = date_json.toJSON();
 
-    var post_content = fs.readFileSync(path.join(posts_final_path, result.url + ".md"), {encoding:'utf8'}),
+    var post_content = fs.readFileSync(path.join(__dirname, posts_final_path, result.url + ".html"), {encoding:'utf8'}),
         file_path = path.join(__dirname, 'posts', 'json', result.url + '.json'),
         post_json = {
           url: result.url,
@@ -85,6 +85,10 @@ prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
           image: result.image,
           content: post_content
         };
+
+    console.log(post_content);
+    console.log(path.join(posts_final_path, result.url + ".html"));
+
 
 
     if(fs.existsSync(file_path)) {

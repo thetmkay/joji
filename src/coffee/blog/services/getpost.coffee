@@ -19,6 +19,8 @@ services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 				url: data.url
 				content: data.content
 				title: data.title
+				image: data.image
+				date: data.shown_date
 				prev_url: data.prev_url
 				prev_title: data.prev_title
 				next_url: data.next_url
