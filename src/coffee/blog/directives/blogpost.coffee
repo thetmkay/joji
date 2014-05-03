@@ -19,7 +19,8 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 		_linkSloppyNotes = () ->
 			$target = $parent.find('sloppy-note')
 			$content = $target.find('#target-sloppy-note-content')
-			$index = $target.find('#target-sloppy-note-index')
+			# $index = $target.find('#target-sloppy-note-index')
+			$icon = $target.find('.sloppy-icon i')
 			$notes = element.find(note_selector)
 			console.log($notes)
 			angular.forEach $notes, (note, index) ->
@@ -34,8 +35,12 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 						$target.toggle()
 
 				return
-			return
+			
 
+			$icon.on 'click', () ->
+				$target.hide()
+
+			return
 
 
 		getPostService.getPost($stateParams.posturl).then (post)=>

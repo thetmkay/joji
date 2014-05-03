@@ -62,7 +62,9 @@ var send_post_to_db = function(file_path, post) {
   console.log(post);
   var fd = fs.openSync(file_path, 'w');
   fs.writeSync(fd, JSON.stringify(post, null, 4));
-  api.addPost(post);
+  api.addPost(post, function() {
+    console.log('done');
+  });
 };
 
 

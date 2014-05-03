@@ -57,7 +57,7 @@ exports.getPosts = function(callback) {
 		callback);
 };
 
-exports.addPost = function(post) {
+exports.addPost = function(post, callback) {
 	var criteria = {
 		url: post.url
 	},
@@ -72,8 +72,8 @@ exports.addPost = function(post) {
 		} else {
 			console.err("error adding post");
 		}
+		callback();
 	});
-
 };
 
 exports.getId = function(callback) {

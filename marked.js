@@ -451,7 +451,7 @@ var inline = {
   url: noop,
   tag: /^<!--[\s\S]*?-->|^<\/?\w+(?:"[^"]*"|'[^']*'|[^'">])*?>/,
   link: /^!?\[(inside)\]\(href\)/,
-  footnote: /^\((inside)\)\[(href)\]/,
+  footnote: /^\((footnote)\)\[(sloppy)\]/,
   reflink: /^!?\[(inside)\]\s*\[([^\]]*)\]/,
   nolink: /^!?\[((?:\[[^\]]*\]|[^\[\]])*)\]/,
   strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,
@@ -462,6 +462,8 @@ var inline = {
   text: /^[\s\S]+?(?=[\\<!\[\(_*`]| {2,}\n|$)/
 };
 
+inline._footnote = /(?:\([^\)]*\)|[^\(\)]|\)(?=[^\(]*\)))*/;
+inline._sloppy = /(?:[^\]])*/; ///(?:[^\)]*|\)[^\[]+)*/;
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
 inline._href = /\s*<?([\s\S]*?)>?(?:\s+['"]([\s\S]*?)['"])?\s*/;
 
@@ -471,9 +473,11 @@ inline.link = replace(inline.link)
   ();
 
 inline.footnote = replace(inline.footnote)
-  ('inside', inline._inside)
-  ('href', inline._inside)
+  ('footnote', inline._footnote)
+  ('sloppy', inline._sloppy)
   ();
+
+console.log(inline.footnote);
 
 inline.reflink = replace(inline.reflink)
   ('inside', inline._inside)
@@ -627,6 +631,7 @@ InlineLexer.prototype.output = function(src) {
 
     //footnote
     if (cap = this.rules.footnote.exec(src)) {
+      console.log(cap);
       src = src.substring(cap[0].length);
       this.inFootnote = true;
       out += this.renderer.footnote(this.output(cap[1]), this.output(cap[2]));

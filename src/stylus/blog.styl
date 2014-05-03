@@ -72,7 +72,7 @@ body
 	padding 2em 1em
 	display	block
 	text-align center
-	background-color #222
+	background-color #333
 	.nav-links
 		width 36em
 		display inline-block
@@ -169,8 +169,11 @@ a
 
 .sloppy-note
 	border-bottom dashed 1px
+	color black !important
+	font-weight normal !important
 
 sloppy-note
+	z-index 3
 	position fixed
 	top 0
 	left 0
@@ -181,9 +184,13 @@ sloppy-note
 	color white
 	width 100%
 	text-align left
+	line-height 1.25em
 	div
 		display inline
 		height 100%
+		vertical-align middle
 	.sloppy-icon
 		padding-right 2em
+		padding-bottom .25em
+		color #333
 
