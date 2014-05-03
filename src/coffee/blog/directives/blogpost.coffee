@@ -31,10 +31,10 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 					# console.log('click')
 					$this = angular.element this
 					if($content.data('index') isnt index)
+						$target.show()
 						$content.html($this.data('content'))
 						console.log('note content' + $note.data('content'))
 						$content.data('index', index)
-						$target.show()
 					else
 						$target.toggle()
 				console.log('end for each')

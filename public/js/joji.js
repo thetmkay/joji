@@ -34255,10 +34255,10 @@ angular.module('ui.router.compat')
                 var $this;
                 $this = angular.element(this);
                 if ($content.data('index') !== index) {
+                  $target.show();
                   $content.html($this.data('content'));
                   console.log('note content' + $note.data('content'));
-                  $content.data('index', index);
-                  return $target.show();
+                  return $content.data('index', index);
                 } else {
                   return $target.toggle();
                 }
