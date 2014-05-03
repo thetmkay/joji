@@ -32,7 +32,7 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 					$this = angular.element this
 					if($content.data('index') isnt index)
 						$content.html($this.data('content'))
-						# console.log('note content' + $note.data('content'))
+						console.log('note content' + $note.data('content'))
 						$content.data('index', index)
 						$target.show()
 					else

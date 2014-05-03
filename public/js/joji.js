@@ -34256,6 +34256,7 @@ angular.module('ui.router.compat')
                 $this = angular.element(this);
                 if ($content.data('index') !== index) {
                   $content.html($this.data('content'));
+                  console.log('note content' + $note.data('content'));
                   $content.data('index', index);
                   return $target.show();
                 } else {
