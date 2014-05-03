@@ -21,12 +21,13 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			$content = $target.find('#target-sloppy-note-content')
 			# $index = $target.find('#target-sloppy-note-index')
 			$icon = $target.find('.sloppy-icon i')
-			$notes = element.find(note_selector)
+			$notes = $elem.find(note_selector)
 			console.log($notes)
 			angular.forEach $notes, (note, index) ->
 				$note = angular.element note
 				# $note.data 'index', index
 				$note.on 'click', () ->
+					console.log('click')
 					if($content.data('index') isnt index)
 						$content.html $note.data('content')
 						$content.data('index', index)
