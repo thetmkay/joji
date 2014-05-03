@@ -13,6 +13,7 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 		$elem = angular.element element
 
 		_unescape = (html) ->
+			console.log(html);
 			return $('<div/>').html(html).text();
 
 		_linkSloppyNotes = () ->
@@ -23,11 +24,11 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			console.log($notes)
 			angular.forEach $notes, (note, index) ->
 				$note = angular.element note
-				$note.data 'index', index
+				# $note.data 'index', index
 				$note.on 'click', () ->
-					$content.html _unescape($note.data('content'))
+					$content.html $note.data('content')
 					$index.html index
-					$target.show()
+					$target.toggle()
 				return
 			return
 

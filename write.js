@@ -92,7 +92,7 @@ prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
     console.log(post_content);
     // console.log(path.join(posts_final_path, result.url + ".html"));
 
-    fs.writeFileSync(path.join(__dirname, 'posts', 'drafts', result.url + ".html"), post_content, {encoding:'utf8'});
+    fs.writeFileSync(path.join(__dirname, 'posts', 'final', result.url + ".html"), post_content, {encoding:'utf8'});
 
     if(fs.existsSync(file_path)) {
      var old_json_string = fs.readFileSync(file_path, {encoding:'utf8'});

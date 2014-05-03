@@ -1,3 +1,19 @@
+.light-theme
+	a
+		color #0000ff
+	a:visited
+		color #0000e5
+	a:hover
+		color #ffa500
+
+.dark-theme
+	a
+		color #ffa500
+	a:visited
+		color #e59400
+	a:hover
+		color #cc8400
+
 .blogpost-link
 	min-height 8em
 	width 100%
@@ -68,9 +84,6 @@ body
 			a
 				font-family 'Montserrat'
 				padding .5em
-				color orange
-		a
-			color orange
 		> a
 			margin-top 1em
 .nav-sig
@@ -88,28 +101,15 @@ body
 a
 	text-decoration none
 
-.blog-post a
-	color blue
-
-.blog-post a:visited
-	color blue
-
-.blog-post a:hover
-	color orange
-
 
 .blog-post
 	width 100%
 	text-align center
 	display block
-
 	a
-		color blue
-		font-weight bold
-	a:visited
-		color blue
-	a:hover
-		color orange
+		font-weight 600
+		strong,em
+			font-weight 800
 
 .blog-header
 	width 100%
@@ -142,8 +142,6 @@ a
 		.qs-link:hover
 			color orange
 
-
-
 .post-title
 	// text-decoration underline
 	font-family 'Montserrat'
@@ -168,3 +166,24 @@ a
 .blog-page
 	font-family 'Open Sans'
 	font-size 1em
+
+.sloppy-note
+	border-bottom dashed 1px
+
+sloppy-note
+	position fixed
+	top 0
+	left 0
+	right 0
+	padding 1em 3em
+	min-height 3em
+	background-color black
+	color white
+	width 100%
+	text-align left
+	div
+		display inline
+		height 100%
+	.sloppy-icon
+		padding-right 2em
+

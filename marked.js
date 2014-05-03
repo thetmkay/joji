@@ -459,7 +459,7 @@ var inline = {
   code: /^(`+)\s*([\s\S]*?[^`])\s*\1(?!`)/,
   br: /^ {2,}\n(?!\s*$)/,
   del: noop,
-  text: /^[\s\S]+?(?=[\\<!\[_*`]| {2,}\n|$)/
+  text: /^[\s\S]+?(?=[\\<!\[\(_*`]| {2,}\n|$)/
 };
 
 inline._inside = /(?:\[[^\]]*\]|[^\[\]]|\](?=[^\[]*\]))*/;
@@ -578,6 +578,8 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(1);
+
     // autolink
     if (cap = this.rules.autolink.exec(src)) {
       src = src.substring(cap[0].length);
@@ -594,6 +596,8 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(2);
+
     // url (gfm)
     if (!this.inLink && (cap = this.rules.url.exec(src))) {
       src = src.substring(cap[0].length);
@@ -602,6 +606,8 @@ InlineLexer.prototype.output = function(src) {
       out += this.renderer.link(href, null, text);
       continue;
     }
+
+    console.log(3);
 
     // tag
     if (cap = this.rules.tag.exec(src)) {
@@ -617,6 +623,19 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(src);
+
+    //footnote
+    if (cap = this.rules.footnote.exec(src)) {
+      src = src.substring(cap[0].length);
+      this.inFootnote = true;
+      out += this.renderer.footnote(this.output(cap[1]), this.output(cap[2]));
+      this.inFootnote = false;
+      continue;
+    }
+
+    console.log(4);
+
     // link
     if (cap = this.rules.link.exec(src)) {
       src = src.substring(cap[0].length);
@@ -629,14 +648,7 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    //footnote
-    if (cap = this.rules.footnote.exec(src)) {
-      src = src.substring(cap[0].length);
-      this.inFootnote = true;
-      out += this.renderer.footnote(this.output(cap[1]), this.output(cap[2]));
-      this.inFootnote = false;
-      continue;
-    }
+    console.log(5);
 
     // reflink, nolink
     if ((cap = this.rules.reflink.exec(src))
@@ -655,12 +667,16 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(6);
+
     // strong
     if (cap = this.rules.strong.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.strong(this.output(cap[2] || cap[1]));
       continue;
     }
+
+    console.log(7);
 
     // em
     if (cap = this.rules.em.exec(src)) {
@@ -669,12 +685,16 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(8);
+
     // code
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.codespan(escape(cap[2], true));
       continue;
     }
+
+    console.log(9);
 
     // br
     if (cap = this.rules.br.exec(src)) {
@@ -683,6 +703,8 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(10);
+
     // del (gfm)
     if (cap = this.rules.del.exec(src)) {
       src = src.substring(cap[0].length);
@@ -690,12 +712,16 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
+    console.log(11);
+
     // text
     if (cap = this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
       out += escape(this.smartypants(cap[0]));
       continue;
     }
+
+    console.log(12);
 
     if (src) {
       throw new
@@ -888,7 +914,7 @@ Renderer.prototype.link = function(href, title, text) {
       return '';
     }
   }
-  var out = '<a href="' + href + '"';
+  var out = '<a target="_blank" href="' + href + '"';
   if (title) {
     out += ' title="' + title + '"';
   }
@@ -897,7 +923,7 @@ Renderer.prototype.link = function(href, title, text) {
 };
 
 Renderer.prototype.image = function(href, title, text) {
-  var out = '<a class="image-link" href="' + href+ '"><img src="' + href + '" alt="' + text + '"';
+  var out = '<a target="_blank" class="image-link" href="' + href+ '"><img src="' + href + '" alt="' + text + '"';
   if (title) {
     out += ' title="' + title + '"';
   }
