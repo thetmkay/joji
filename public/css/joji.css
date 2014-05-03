@@ -19,7 +19,7 @@ body{margin:0;padding:0}
 .blog-nav .nav-links p a{font-family:'Montserrat';padding:.5em}
 .blog-nav .nav-links > a{margin-top:1em}
 .nav-sig{padding:2em}
-#g-icon{display:inline-block;background-image:url("/img/george-logo-white.png");-webkit-background-size:contain;background-size:contain;background-repeat:no-repeat;width:50px;height:50px}
+#g-icon{display:inline-block;background-image:url("/img/george-logo-white.png");-webkit-background-size:contain;background-size:contain;background-repeat:no-repeat;width:50px;height:50px;cursor:pointer}
 a{text-decoration:none}
 .blog-post{width:100%;text-align:center;display:block;}
 .blog-post a{font-weight:600;}
@@ -37,11 +37,12 @@ a{text-decoration:none}
 .post-content a{text-align:left}
 .post-content h1,.post-content h2,.post-content h3,.post-content h4,.post-content h5,.post-content h6{margin:1em 0;padding-left:4em}
 .blog-page{font-family:'Open Sans';font-size:1em}
-.sloppy-note{border-bottom:dashed 1px;color:#000 !important;font-weight:normal !important}
+.sloppy-note{border-bottom:dashed 1px;color:#000 !important;font-weight:normal !important;cursor:pointer}
 sloppy-note{z-index:3;position:fixed;top:0;left:0;right:0;padding:0 3em;min-height:3em;background-color:#000;color:#fff;width:100%;text-align:left;line-height:1.25em;opacity:.85;}
 sloppy-note div{display:inline;height:100%;vertical-align:middle}
-.sloppy-icon{float:left;width:10%;padding-right:2em;padding-top:1em;padding-bottom:1em;color:#333;}
+.sloppy-icon{float:left;cursor:pointer;width:10%;padding-right:2em;padding-top:.75em;padding-bottom:.75em;color:#333;}
 .sloppy-icon i{float:right}
+.sloppy-icon i:hover{color:#555}
 #target-sloppy-note-content{float:right;width:90%}
 
 *{-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}

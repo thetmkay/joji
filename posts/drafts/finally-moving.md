@@ -6,7 +6,7 @@ This is the "start" of the journey - from now on my life (is meant to)[spoiler a
 
 But anyone who is a frequent flyer will know the journey doesn't start at the Arrivals terminal. No,  this would be more like the fuselage of the plane, the moment immediately after buckling your seatbelt. After catching your breath from the mad scramble across the terminal. After the taxi driver was (pulled over)[This has happened to me, but fortunately not on this trip. It was actually a relatively smooth ride here (at least the second time was)] for weaving in and out of the car pool lane on the way to the airport.
 
-But we're finally here. A checkpoint, back on course and ready to go on cruise control and enjoy a hopefully smoother, turbulent-free ride.
+But we're finally here. A checkpoint, back on track and ready to enjoy a hopefully smoother, turbulent-free ride.
 
 *What now?*
 
