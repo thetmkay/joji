@@ -37,12 +37,13 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 						$target.show()
 					else
 						$target.toggle()
-
+				console.log('end for each')
 				return
-			
+
 
 			$icon.on 'click', () ->
 				$target.hide()
+
 
 			return
 
@@ -52,7 +53,9 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			element.find("#postContent").html(post.content)
 			element.find("#postTitle").html(post.title)
 			scope.img_header = post.image;
+			console.log('prelink')
 			_linkSloppyNotes()
+			console.log('postlink')
 			return
 		return
 ]
