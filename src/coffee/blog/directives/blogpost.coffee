@@ -19,6 +19,7 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 		_linkSloppyNotes = () ->
 			$target = $parent.find('sloppy-note')
 			$content = $target.find('#target-sloppy-note-content')
+			console.log($content)
 			# $index = $target.find('#target-sloppy-note-index')
 			$icon = $target.find('.sloppy-icon i')
 			$notes = $elem.find(note_selector)
@@ -30,6 +31,7 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 					console.log('click')
 					if($content.data('index') isnt index)
 						$content.html $note.data('content')
+						console.log('note content' + $note.data('content'))
 						$content.data('index', index)
 						$target.show()
 					else
