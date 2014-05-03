@@ -26,9 +26,13 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 				$note = angular.element note
 				# $note.data 'index', index
 				$note.on 'click', () ->
-					$content.html $note.data('content')
-					$index.html index
-					$target.toggle()
+					if($content.data('index') isnt index)
+						$content.html $note.data('content')
+						$content.data('index', index)
+						$target.show()
+					else
+						$target.toggle()
+
 				return
 			return
 
