@@ -118,7 +118,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('test', ['jshint']);
   grunt.registerTask('build', ['concurrent:build', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('production', ['bower','build', 'env:prod','concurrent']);
+  grunt.registerTask('production', ['env:prod','concurrent']);
   grunt.registerTask('default', ['build','env:dev','concurrent']);
 
 };
