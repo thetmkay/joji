@@ -10,6 +10,13 @@ module.exports = function(grunt) {
         NODE_ENV: 'production'
       }
     },
+    bower : {
+      install: {
+        options: {
+          targetDir: './bower_components'
+        }
+      }
+    },
     concat: {
       options: {
         separator: ';'
@@ -107,10 +114,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-nodemon');
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-concurrent');
+  grunt.loadNpmTasks('grunt-bower-task');
 
   grunt.registerTask('test', ['jshint']);
   grunt.registerTask('build', ['concurrent:build', 'jshint', 'concat', 'uglify']);
-  grunt.registerTask('production', ['build', 'env:prod','concurrent']);
+  grunt.registerTask('production', ['bower','build', 'env:prod','concurrent']);
   grunt.registerTask('default', ['build','env:dev','concurrent']);
 
 };
