@@ -34357,8 +34357,10 @@ angular.module('ui.router.compat')
               var $note;
               $note = angular.element(note);
               $note.on('click', function() {
+                var $this;
+                $this = angular.element(this);
                 if ($content.data('index') !== index) {
-                  $content.html($note.data('content'));
+                  $content.html($this.data('content'));
                   $content.data('index', index);
                   return $target.show();
                 } else {
