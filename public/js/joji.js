@@ -34237,8 +34237,8 @@ angular.module('ui.router.compat')
           var $elem, $parent, note_selector, _linkSloppyNotes, _unescape,
             _this = this;
           note_selector = '.sloppy-note';
-          $parent = angular.element(element.context.parentNode);
-          $elem = angular.element(element);
+          $elem = $(element);
+          $parent = $elem.parent();
           _unescape = function(html) {
             return $('<div/>').html(html).text();
           };

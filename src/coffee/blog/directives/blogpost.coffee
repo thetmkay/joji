@@ -9,8 +9,9 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 
 		note_selector = '.sloppy-note'
 
-		$parent = angular.element element.context.parentNode
-		$elem = angular.element element
+		$elem = $(element)
+		$parent = $elem.parent()
+
 
 		_unescape = (html) ->
 			# console.log(html);
