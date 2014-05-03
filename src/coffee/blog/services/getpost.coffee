@@ -14,7 +14,7 @@ services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 		_post.url = url
 		#TODO deal with error case
 		$http.get('/api/getpost/' + url).success (data,status) =>
-			console.log 'retrieved'
+			# console.log 'retrieved'
 			_post =
 				url: data.url
 				content: data.content

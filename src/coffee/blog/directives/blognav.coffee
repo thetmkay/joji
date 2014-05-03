@@ -8,7 +8,7 @@ directives.directive 'blogNav', ['getPostService', '$stateParams', (getPostServi
 	link: (scope,element,attrs) ->
 		console.log('bbbbbbb')
 		getPostService.getPost($stateParams.posturl).then (post)=>
-			console.log(post);
+			# console.log(post);
 			if(post.prev_url)
 				scope.prev_url = post.prev_url
 				scope.prev_title = post.prev_title

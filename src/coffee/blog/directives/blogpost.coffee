@@ -13,25 +13,25 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 		$elem = angular.element element
 
 		_unescape = (html) ->
-			console.log(html);
+			# console.log(html);
 			return $('<div/>').html(html).text();
 
 		_linkSloppyNotes = () ->
 			$target = $parent.find('sloppy-note')
 			$content = $target.find('#target-sloppy-note-content')
-			console.log($content)
+			# console.log($content)
 			# $index = $target.find('#target-sloppy-note-index')
 			$icon = $target.find('.sloppy-icon i')
 			$notes = $elem.find(note_selector)
-			console.log($notes)
+			# console.log($notes)
 			angular.forEach $notes, (note, index) ->
 				$note = angular.element note
 				# $note.data 'index', index
 				$note.on 'click', () ->
-					console.log('click')
+					# console.log('click')
 					if($content.data('index') isnt index)
-						$content.html $note.data('content')
-						console.log('note content' + $note.data('content'))
+						$content.html($note.data('content'))
+						# console.log('note content' + $note.data('content'))
 						$content.data('index', index)
 						$target.show()
 					else
