@@ -34666,7 +34666,10 @@ angular.module('ui.router.compat')
       $stateProvider.state('blog', {
         url: '/blog',
         abstract: true,
-        template: "<ui-view/>"
+        template: "<ui-view/>",
+        onEnter: function() {
+          return $('head title').text('Blog');
+        }
       }).state('blog.list', {
         url: '',
         parent: 'blog',

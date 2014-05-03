@@ -1,6 +1,6 @@
 /*! joji 03-05-2014 */
-.light-theme a{color:#00f}
-.light-theme a:visited{color:#0000e5}
+.light-theme a{color:#327bff}
+.light-theme a:visited{color:#005bff}
 .light-theme a:hover{color:#ffa500}
 .dark-theme a{color:#ffa500}
 .dark-theme a:visited{color:#e59400}
@@ -38,9 +38,9 @@ a{text-decoration:none}
 .post-content h1,.post-content h2,.post-content h3,.post-content h4,.post-content h5,.post-content h6{margin:1em 0;padding-left:4em}
 .blog-page{font-family:'Open Sans';font-size:1em}
 .sloppy-note{border-bottom:dashed 1px;color:#000 !important;font-weight:normal !important}
-sloppy-note{z-index:3;position:fixed;top:0;left:0;right:0;padding:1em 3em;min-height:3em;background-color:#000;color:#fff;width:100%;text-align:left;line-height:1.25em;opacity:.8;}
+sloppy-note{z-index:3;position:fixed;top:0;left:0;right:0;padding:0 3em;min-height:3em;background-color:#000;color:#fff;width:100%;text-align:left;line-height:1.25em;opacity:.85;}
 sloppy-note div{display:inline;height:100%;vertical-align:middle}
-.sloppy-icon{float:left;width:10%;padding-right:2em;padding-bottom:.25em;color:#333;}
+.sloppy-icon{float:left;width:10%;padding-right:2em;padding-top:1em;padding-bottom:1em;color:#333;}
 .sloppy-icon i{float:right}
 #target-sloppy-note-content{float:right;width:90%}
 

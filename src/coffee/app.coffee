@@ -16,6 +16,8 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 			url: '/blog'
 			abstract: true
 			template: "<ui-view/>"
+			onEnter: () ->
+				$('head title').text('Blog')
 		.state 'blog.list',
 			url: ''
 			parent: 'blog'

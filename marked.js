@@ -938,7 +938,7 @@ Renderer.prototype.image = function(href, title, text) {
 };
 
 Renderer.prototype.footnote = function(text, footnote) {
-  var out = '<a class="sloppy-note" data-index=' + this.footnote_index + ' data-content="' + escape(footnote) + '">';
+  var out = '<a class="sloppy-note" data-index=' + this.footnote_index + ' data-content="' + escape('<p>'+footnote+'</p>') + '">';
   out += text;
   out += '</a>';
   this.footnote_index++;
