@@ -34234,7 +34234,7 @@ angular.module('ui.router.compat')
   }
 
   services.service('getPostsService', [
-    '$http', '$q', function($http, $q) {
+    '$http', '$q', '$filter', function($http, $q, $filter) {
       var _deferred, _posts,
         _this = this;
       _posts = [];
@@ -34242,7 +34242,8 @@ angular.module('ui.router.compat')
       this.getPosts = function() {
         _deferred = $q.defer();
         $http.get('/api/getposts/').success(function(data, status) {
-          _posts = data;
+          _posts = $filter('orderBy')(data, 'shown_date', true);
+          console.log(_posts);
           return _deferred.resolve(_posts);
         });
         return _deferred.promise;
