@@ -68,48 +68,69 @@ var send_post_to_db = function(file_path, post) {
 };
 
 
-prompt.get([ title_req, url_req, date_req, image_req], function(err, result) {
+
+prompt.get([url_req], function(err, result) {
   if(!err) {
 
-    var date_arr = result.date.split('/'),
-        date_json = new Date();
+    var post_json = {},
+    json_file_path = path.join('posts', 'json', result.url + '.json'),
+    file_content = fs.readFileSync(path.join(__dirname, posts_drafts_path, result.url + ".md"), {encoding:'utf8'}),
+    post_content = marked(file_content);
 
-        date_json.setDate(parseInt(date_arr[0]));
-        date_json.setMonth(parseInt(date_arr[1]) - 1);
-        date_json.setYear(parseInt(date_arr[2]));
-        date_json = date_json.toJSON();
+    post_json.content = post_content;
+    post_json.url = result.url;
 
-    var file_content = fs.readFileSync(path.join(__dirname, posts_drafts_path, result.url + ".md"), {encoding:'utf8'}),
-        post_content = marked(file_content),
-        file_path = path.join(__dirname, 'posts', 'json', result.url + '.json'),
-        post_json = {
-          url: result.url,
-          title: result.title,
-          shown_date: date_json,
-          last_modified: new Date().toJSON(),
-          image: result.image,
-          content: post_content
-        };
+    if(check_file(json_file_path)) {
+      var old_json_string = fs.readFileSync(json_file_path, {encoding:'utf8'}),
+          old_json = JSON.parse(old_json_string),
+          old_date = new Date(old_json.shown_date),
+          old_date_json = old_date.getDate() + '/' + (old_date.getMonth() + 1) + '/' + old_date.getFullYear();
 
-    console.log(post_content);
-    // console.log(path.join(posts_final_path, result.url + ".html"));
-
-    fs.writeFileSync(path.join(__dirname, 'posts', 'final', result.url + ".html"), post_content, {encoding:'utf8'});
-
-    if(fs.existsSync(file_path)) {
-     var old_json_string = fs.readFileSync(file_path, {encoding:'utf8'});
-     var old_json = JSON.parse(old_json_string);
-     post_json.id = old_json.id;
-     post_json.date_created = old_json.date_created;
-     send_post_to_db(file_path, post_json);
+      post_json.id = old_json.id;
+      post_json.date_created = old_json.date_created;
+      title_req.default = old_json.title;
+      date_req.default = old_date_json;
+      image_req.default = old_json.image;
     }
     else {
-      api.getId(function(id) {
-        post_json.id = id + 1;
-        post_json.date_created = new Date().toJSON();
-        send_post_to_db(file_path, post_json);
-      });
+      post_json.id = false;
+      post_json.date_created = new Date().toJSON();
     }
+    prompt.get([ title_req, date_req, image_req], function(err, result) {
+      if(!err) {
+        var date_arr = result.date.split('/'),
+            date_json = new Date();
+
+            date_json.setDate(parseInt(date_arr[0]));
+            date_json.setMonth(parseInt(date_arr[1]) - 1);
+            date_json.setYear(parseInt(date_arr[2]));
+            date_json = date_json.toJSON();
+
+        post_json.title = result.title;
+        post_json.shown_date = date_json;
+        post_json.last_modified = new Date().toJSON();
+        post_json.image = result.image;
+
+        console.log(post_content);
+
+        fs.writeFileSync(path.join(__dirname, 'posts', 'final', result.url + ".html"), post_content, {encoding:'utf8'});
+
+        json_file_path = path.join(__dirname, json_file_path);
+
+        if(post_json.id) {
+         send_post_to_db(json_file_path, post_json);
+        }
+        else {
+          api.getId(function(id) {
+            post_json.id = id + 1;
+            send_post_to_db(json_file_path, post_json);
+          });
+        }
+      }
+    });
   }
 });
+
+
+
 
