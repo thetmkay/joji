@@ -117,7 +117,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-bower-task');
 
   grunt.registerTask('test', ['jshint']);
-  grunt.registerTask('build', ['concurrent:build', 'jshint', 'concat', 'uglify']);
+  grunt.registerTask('build', ['bower','concurrent:build', 'jshint', 'concat', 'uglify']);
   grunt.registerTask('production', ['env:prod','concurrent']);
   grunt.registerTask('default', ['build','env:dev','concurrent']);
 
