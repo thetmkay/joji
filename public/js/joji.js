@@ -34340,13 +34340,11 @@ angular.module('ui.router.compat')
             angular.forEach($notes, function(note, index) {
               var $note;
               $note = angular.element(note);
-              $target = $('sloppy-note');
-              $content = $('#target-sloppy-note-content');
               $note.on('click', function() {
                 var $this;
                 $this = angular.element(this);
-                console.log($target);
-                console.log($content);
+                $target = $('sloppy-note');
+                $content = $('#target-sloppy-note-content');
                 if ($content.data('index') !== index) {
                   $target.show();
                   $content.html($this.data('content'));
