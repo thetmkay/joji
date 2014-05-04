@@ -27,14 +27,12 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			# console.log($notes)
 			angular.forEach $notes, (note, index) ->
 				$note = angular.element note
-				$target = $('sloppy-note')
-				$content = $('#target-sloppy-note-content')
 				# $note.data 'index', index
 				$note.on 'click', () ->
 					# console.log('click')
 					$this = angular.element this
-					console.log($target);
-					console.log($content);
+					$target = $('sloppy-note')
+					$content = $('#target-sloppy-note-content')
 					if($content.data('index') isnt index)
 						$target.show()
 						$content.html($this.data('content'))
