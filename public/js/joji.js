@@ -34333,10 +34333,9 @@ angular.module('ui.router.compat')
             return $('<div/>').html(html).text();
           };
           _linkSloppyNotes = function() {
-            var $content, $icon, $notes, $target;
+            var $content, $notes, $target;
             $target = $parent.find('sloppy-note');
             $content = $target.find('#target-sloppy-note-content');
-            $icon = $target.find('.sloppy-icon i');
             $notes = $elem.find(note_selector);
             angular.forEach($notes, function(note, index) {
               var $note;
@@ -34356,9 +34355,6 @@ angular.module('ui.router.compat')
                 }
               });
               console.log('end for each');
-            });
-            $icon.on('click', function() {
-              return $target.hide();
             });
           };
           getPostService.getPost($stateParams.posturl).then(function(post) {
@@ -34442,7 +34438,13 @@ angular.module('ui.router.compat')
         restrict: 'E',
         templateUrl: 'blog/sloppynote',
         link: function(scope, elem, attrs) {
-          angular.element(elem).hide();
+          var $elem,
+            _this = this;
+          $elem = angular.element(elem);
+          $elem.hide();
+          $elem.find('.sloppy-icon i').on('click', function() {
+            return $elem.hide();
+          });
         }
       };
     }

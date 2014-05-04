@@ -22,7 +22,6 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			$content = $target.find('#target-sloppy-note-content')
 			# console.log($content)
 			# $index = $target.find('#target-sloppy-note-index')
-			$icon = $target.find('.sloppy-icon i')
 			$notes = $elem.find(note_selector)
 			# console.log($notes)
 			angular.forEach $notes, (note, index) ->
@@ -42,12 +41,6 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 						$target.toggle()
 				console.log('end for each')
 				return
-
-
-			$icon.on 'click', () ->
-				$target.hide()
-
-
 			return
 
 

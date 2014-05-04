@@ -5,7 +5,11 @@ directives.directive 'sloppyNote', [ () ->
 	restrict: 'E'
 	templateUrl: 'blog/sloppynote'
 	link: (scope, elem, attrs) ->
-		angular.element(elem).hide()
+		$elem = angular.element(elem)
+		$elem.hide()
+		$elem.find('.sloppy-icon i').on 'click', =>
+			$elem.hide()
+
 		# note_selector = '.sloppy-note'
 		# $target = angular.element elem
 		# $content = $target.find('#target-sloppy-note-content')
