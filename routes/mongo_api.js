@@ -57,41 +57,6 @@ exports.getPosts = function(callback) {
 		callback);
 };
 
-exports.addPost = function(post, callback) {
-	var criteria = {
-		url: post.url
-	},
-		options = {
-			safe: true,
-			upsert: true
-	};
-
-	db.collection('posts').update(criteria, post, options, function(err,count) {
-		if(!err) {
-			console.log(count + " documents were successfully updated");
-		} else {
-			console.err("error adding post");
-		}
-		callback();
-	});
-};
-
-exports.getId = function(callback) {
-	db.collection('posts').find({},{id:true}, {sort:'id'}, function(err, cursor) {
-		cursor.toArray(function(err,arr) {
-			if(arr.length > 0) {
-				callback(arr[arr.length-1].id);
-			}
-			else if(!err) {
-				callback(0);
-			}
-			else {
-				console.error(err);
-			}
-		})
-	});
-};
-
 //post will have
 //id
 //title

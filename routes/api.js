@@ -26,11 +26,3 @@ exports.getPosts = function(req,res) {
 		});
 	});
 };
-
-exports.addPost = function(post, callback) {
-	mongo.addPost(post, callback);
-};
-
-exports.getId = function(callback) {
-	mongo.getId(callback);
-};
