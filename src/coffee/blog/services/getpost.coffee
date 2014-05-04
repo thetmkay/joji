@@ -26,6 +26,7 @@ services.service 'getPostService', ['$http', '$q', ($http, $q) ->
 				next_url: data.next_url
 				next_title: data.next_title
 			_deferred.resolve(_post);
+			$('head title').text('Blog | ' + data.title)
 		return
 	return this
 ]

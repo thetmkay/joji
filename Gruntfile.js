@@ -62,7 +62,7 @@ module.exports = function(grunt) {
                 join: true
             },
             files: {
-                'src/js/coffee.js':['src/coffee/**/services/*.coffee','src/coffee/**/controllers/*.coffee','src/coffee/**/directives/*.coffee','src/coffee/app.coffee']
+                'src/js/coffee.js':['src/coffee/!(ignore)/services/*.coffee','src/coffee/!(ignore)/controllers/*.coffee','src/coffee/!(ignore)/directives/*.coffee','src/coffee/app.coffee']
             }
         }
     },

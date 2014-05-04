@@ -34221,7 +34221,8 @@ angular.module('ui.router.compat')
             next_url: data.next_url,
             next_title: data.next_title
           };
-          return _deferred.resolve(_post);
+          _deferred.resolve(_post);
+          return $('head title').text('Blog | ' + data.title);
         });
       };
       return this;
@@ -34249,23 +34250,6 @@ angular.module('ui.router.compat')
       return this;
     }
   ]);
-
-  if (!services) {
-    services = angular.module('joji.services', []);
-  }
-
-  services.service('linkPostService', [
-    function() {
-      this.setSloppyNotesLinkFn = function(linkFn) {
-        this.linkSloppyNotes = linkFn;
-      };
-      return this;
-    }
-  ]);
-
-  if (!controllers) {
-    controllers = angular.module('joji.controllers', []);
-  }
 
   if (!controllers) {
     controllers = angular.module('joji.controllers', []);
@@ -34356,9 +34340,13 @@ angular.module('ui.router.compat')
             angular.forEach($notes, function(note, index) {
               var $note;
               $note = angular.element(note);
+              $target = $('sloppy-note');
+              $content = $('#target-sloppy-note-content');
               $note.on('click', function() {
                 var $this;
                 $this = angular.element(this);
+                console.log($target);
+                console.log($content);
                 if ($content.data('index') !== index) {
                   $content.html($this.data('content'));
                   $content.data('index', index);
@@ -34452,209 +34440,6 @@ angular.module('ui.router.compat')
         templateUrl: 'blog/sloppynote',
         link: function(scope, elem, attrs) {
           angular.element(elem).hide();
-        }
-      };
-    }
-  ]);
-
-  if (!directives) {
-    directives = angular.module('joji.directives', []);
-  }
-
-  directives.directive('homeSlideShowNav', [
-    function() {
-      return {
-        templateUrl: 'home/slidenav',
-        replace: true,
-        restrict: 'E',
-        require: ['^homeSlide', '^homeSlideShow'],
-        scope: true,
-        link: function(scope, element, attributes, parentCtrls) {
-          var $elem;
-          $elem = angular.element(element);
-          $elem.children().each(function(index, navLink) {
-            var $navLink;
-            $navLink = angular.element(navLink);
-            if (index === parentCtrls[0].slideIndex) {
-              $navLink.addClass('full-opacity');
-            }
-            $navLink.on('click', function() {
-              console.log('click');
-              parentCtrls[1].changeIndex(index);
-            });
-          });
-        }
-      };
-    }
-  ]);
-
-  if (!directives) {
-    directives = angular.module('joji.directives', []);
-  }
-
-  directives.directive('homeSlide', [
-    function() {
-      return {
-        templateUrl: function(element, attributes) {
-          return 'home/slides/' + attributes.templatename;
-        },
-        replace: true,
-        restrict: 'E',
-        scope: true,
-        controller: function($scope, $attrs) {
-          this.slideIndex = parseInt($attrs.index);
-        },
-        link: function(scope, element, attributes) {
-          return scope.$watch('height', function() {
-            element.css({
-              'height': scope.height + 'px'
-            });
-          });
-        }
-      };
-    }
-  ]);
-
-  if (!directives) {
-    directives = angular.module('joji.directives', []);
-  }
-
-  directives.directive('homeSlideShow', [
-    '$document', '$window', function($document, $window) {
-      return {
-        templateUrl: 'home/slideshow',
-        replace: true,
-        scope: true,
-        restrict: 'E',
-        controller: function($scope) {
-          $scope.slide_index = 0;
-          this.changeIndex = function(index) {
-            $scope.slide_index = index;
-            $scope.$apply();
-          };
-          this.getIndex = function() {
-            return $scope.slide_index;
-          };
-        },
-        link: function(scope, element, attrs) {
-          var $this, changeIndex, changePage, clear, last_page, roundedScrolling, scrollStop, scroll_pos, stayOnPage;
-          $this = angular.element(element);
-          console.log(element);
-          scope.setWindowSize = function() {
-            scope.height = $window.innerHeight;
-            scope.width = $window.innerWidth;
-            $this.height(scope.height);
-            $this.width(scope.width);
-            stayOnPage();
-          };
-          last_page = 3;
-          scroll_pos = 0;
-          $this.data('scrolling', 0);
-          clear = function() {
-            if ($this.data('scrollTimeout')) {
-              clearTimeout($this.data('scrollTimeout'));
-            }
-            return $this.data('scrollTimeout', null);
-          };
-          changeIndex = function(amount) {
-            var target_index;
-            if (amount) {
-              target_index = scope.slide_index + amount;
-              target_index = Math.min(target_index, last_page);
-              target_index = Math.max(target_index, 0);
-              scope.slide_index = target_index;
-              scope.$apply();
-            } else {
-              changePage();
-            }
-          };
-          changePage = function() {
-            var current, target, time;
-            current = $this.scrollTop();
-            target = scope.slide_index * scope.height;
-            time = 250 * Math.ceil(Math.abs((current - target) / scope.height));
-            $this.animate({
-              'scrollTop': '' + target + 'px'
-            }, time, clear);
-          };
-          stayOnPage = function() {
-            var target;
-            target = scope.slide_index * scope.height;
-            $this.scrollTop(target);
-          };
-          roundedScrolling = function(start, end, height) {
-            if (end - start > height) {
-              return Math.round((end - start) / height);
-            } else if (end - start > 100) {
-              return 1;
-            }
-            if (end - start < -height) {
-              return Math.round((end - start) / height);
-            } else if (end - start < -100) {
-              return -1;
-            }
-            return 0;
-          };
-          scrollStop = function() {
-            var amount_of_pages, end, start;
-            start = $this.data('scrollStart');
-            end = $this.scrollTop();
-            amount_of_pages = roundedScrolling(start, end, scope.height);
-            changeIndex(amount_of_pages);
-          };
-          $this.scroll(function() {
-            if ($this.data('scrollTimeout')) {
-              clearTimeout($this.data('scrollTimeout'));
-            } else {
-              $this.data('scrollStart', $this.scrollTop());
-            }
-            return $this.data('scrollTimeout', setTimeout(scrollStop, 100, element));
-          });
-          angular.element($window).bind('resize', function() {
-            scope.setWindowSize();
-            scope.$apply();
-          });
-          angular.element($window).bind('keydown', function(event) {
-            event.stopPropagation();
-            if (event.which === 40 || event.which === 34) {
-              changeIndex(1);
-            }
-            if (event.which === 38 || event.which === 33) {
-              return changeIndex(-1);
-            }
-          });
-          scope.$watch('slide_index', function() {
-            return changePage();
-          });
-          scope.setWindowSize();
-        }
-      };
-    }
-  ]);
-
-  if (!directives) {
-    directives = angular.module('joji.directives', []);
-  }
-
-  directives.directive('scrollStop', [
-    function() {
-      return {
-        restrict: 'A',
-        compile: function(element, attrs) {
-          var $this;
-          console.log('hello');
-          $this = angular.element(element);
-          $.fn.scrollStopped = function(callback) {
-            var self;
-            self = this;
-            $this = $(self);
-            return element.scroll(function() {
-              if ($this.data('scrollTimeout')) {
-                clearTimeout($this.data('scrollTimeout'));
-              }
-              return $this.data('scrollTimeout', setTimeout(callback, 250, element));
-            });
-          };
         }
       };
     }
