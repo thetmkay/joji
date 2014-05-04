@@ -5,7 +5,7 @@
 .dark-theme a{color:#ffa500}
 .dark-theme a:visited{color:#e59400}
 .dark-theme a:hover{color:#cc8400}
-.blogpost-link{min-height:8em;width:100%;background-repeat:no-repeat;background-size:cover;text-align:center;vertical-align:middle;margin:0;cursor:pointer;border-bottom:solid 1px #fff}
+.blogpost-link{min-height:8em;width:100%;background-repeat:no-repeat;background-size:cover;text-align:center;vertical-align:middle;margin:0;cursor:pointer;border-bottom:solid 1px #fff;overflow-y:visible}
 .blog-list-anchor{background-color:#222;color:#333;text-align:center;vertical-align:middle;line-height:3em;}
 .blog-list-anchor p{display:inline-block}
 .slug-container{display:inline-block;visibility:hidden;line-height:3em;vertical-align:middle;width:100%}

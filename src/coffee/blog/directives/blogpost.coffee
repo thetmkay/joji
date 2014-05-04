@@ -9,8 +9,9 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 
 		note_selector = '.sloppy-note'
 
-		$parent = angular.element element.context.parentNode
-		$elem = angular.element element
+		$elem = $(element)
+		$parent = $elem.parent()
+
 
 		_unescape = (html) ->
 			# console.log(html);
@@ -35,18 +36,19 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 					console.log($target);
 					console.log($content);
 					if($content.data('index') isnt index)
-						$content.html($this.data('content'))
-						# console.log('note content' + $note.data('content'))
-						$content.data('index', index)
 						$target.show()
+						$content.html($this.data('content'))
+						console.log('note content' + $note.data('content'))
+						$content.data('index', index)
 					else
 						$target.toggle()
-
+				console.log('end for each')
 				return
-			
+
 
 			$icon.on 'click', () ->
 				$target.hide()
+
 
 			return
 
@@ -56,7 +58,9 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			element.find("#postContent").html(post.content)
 			element.find("#postTitle").html(post.title)
 			scope.img_header = post.image;
+			console.log('prelink')
 			_linkSloppyNotes()
+			console.log('postlink')
 			return
 		return
 ]

@@ -34326,8 +34326,8 @@ angular.module('ui.router.compat')
           var $elem, $parent, note_selector, _linkSloppyNotes, _unescape,
             _this = this;
           note_selector = '.sloppy-note';
-          $parent = angular.element(element.context.parentNode);
-          $elem = angular.element(element);
+          $elem = $(element);
+          $parent = $elem.parent();
           _unescape = function(html) {
             return $('<div/>').html(html).text();
           };
@@ -34348,13 +34348,15 @@ angular.module('ui.router.compat')
                 console.log($target);
                 console.log($content);
                 if ($content.data('index') !== index) {
+                  $target.show();
                   $content.html($this.data('content'));
-                  $content.data('index', index);
-                  return $target.show();
+                  console.log('note content' + $note.data('content'));
+                  return $content.data('index', index);
                 } else {
                   return $target.toggle();
                 }
               });
+              console.log('end for each');
             });
             $icon.on('click', function() {
               return $target.hide();
@@ -34364,7 +34366,9 @@ angular.module('ui.router.compat')
             element.find("#postContent").html(post.content);
             element.find("#postTitle").html(post.title);
             scope.img_header = post.image;
+            console.log('prelink');
             _linkSloppyNotes();
+            console.log('postlink');
           });
         }
       };
