@@ -32,11 +32,5 @@
     "test": "grunt test"
   },
   "author": "George Nishimura",
-  "git": "https://github.com/thetmkay/joji",
-  "devDependencies": {
-    "prompt": "^0.2.12",
-    "cheerio": "^0.15.0",
-    "marked": "^0.3.2",
-    "grunt-bower-task": "~0.3.4"
-  }
+  "git": "https://github.com/thetmkay/joji"
 }
