@@ -477,8 +477,6 @@ inline.footnote = replace(inline.footnote)
   ('sloppy', inline._sloppy)
   ();
 
-console.log(inline.footnote);
-
 inline.reflink = replace(inline.reflink)
   ('inside', inline._inside)
   ();
@@ -582,8 +580,6 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(1);
-
     // autolink
     if (cap = this.rules.autolink.exec(src)) {
       src = src.substring(cap[0].length);
@@ -600,8 +596,6 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(2);
-
     // url (gfm)
     if (!this.inLink && (cap = this.rules.url.exec(src))) {
       src = src.substring(cap[0].length);
@@ -610,8 +604,6 @@ InlineLexer.prototype.output = function(src) {
       out += this.renderer.link(href, null, text);
       continue;
     }
-
-    console.log(3);
 
     // tag
     if (cap = this.rules.tag.exec(src)) {
@@ -627,19 +619,14 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(src);
-
     //footnote
     if (cap = this.rules.footnote.exec(src)) {
-      console.log(cap);
       src = src.substring(cap[0].length);
       this.inFootnote = true;
       out += this.renderer.footnote(this.output(cap[1]), this.output(cap[2]));
       this.inFootnote = false;
       continue;
     }
-
-    console.log(4);
 
     // link
     if (cap = this.rules.link.exec(src)) {
@@ -652,8 +639,6 @@ InlineLexer.prototype.output = function(src) {
       this.inLink = false;
       continue;
     }
-
-    console.log(5);
 
     // reflink, nolink
     if ((cap = this.rules.reflink.exec(src))
@@ -672,16 +657,12 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(6);
-
     // strong
     if (cap = this.rules.strong.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.strong(this.output(cap[2] || cap[1]));
       continue;
     }
-
-    console.log(7);
 
     // em
     if (cap = this.rules.em.exec(src)) {
@@ -690,16 +671,12 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(8);
-
     // code
     if (cap = this.rules.code.exec(src)) {
       src = src.substring(cap[0].length);
       out += this.renderer.codespan(escape(cap[2], true));
       continue;
     }
-
-    console.log(9);
 
     // br
     if (cap = this.rules.br.exec(src)) {
@@ -708,8 +685,6 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(10);
-
     // del (gfm)
     if (cap = this.rules.del.exec(src)) {
       src = src.substring(cap[0].length);
@@ -717,16 +692,12 @@ InlineLexer.prototype.output = function(src) {
       continue;
     }
 
-    console.log(11);
-
     // text
     if (cap = this.rules.text.exec(src)) {
       src = src.substring(cap[0].length);
       out += escape(this.smartypants(cap[0]));
       continue;
     }
-
-    console.log(12);
 
     if (src) {
       throw new
