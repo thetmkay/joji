@@ -34386,16 +34386,23 @@ angular.module('ui.router.compat')
         link: function(scope, elem, attrs) {
           var $elem;
           $elem = angular.element(elem);
+          if (!Modernizr.touch) {
+            console.log(Modernizr);
+            $elem.mouseover(function() {
+              return $elem.find('.slug-container').addClass('show-on-hover');
+            });
+            $elem.mouseleave(function() {
+              return $elem.find('.slug-container').removeClass('show-on-hover');
+            });
+          } else {
+            console.log('touch device');
+            $elem.find('.slug-container').addClass('show-on-hover');
+          }
+          console.log($elem);
           $elem.click(function() {
             return $state.go('blog.post', {
               posturl: scope.post.url
             });
-          });
-          $elem.mouseover(function() {
-            return $elem.find('.slug-container').addClass('show-on-hover');
-          });
-          $elem.mouseleave(function() {
-            return $elem.find('.slug-container').removeClass('show-on-hover');
           });
         }
       };
