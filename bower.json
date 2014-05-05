@@ -15,7 +15,7 @@
     "config.js"
   ],
   "dependencies": {
-    "QuickShare": ">=1.0.1",
+    "QuickShare": "1.1.*",
     "angular-resource": "~1.2.16",
     "angular": "~1.2.16"
   }
