@@ -49,9 +49,10 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			element.find("#postContent").html(post.content)
 			element.find("#postTitle").html(post.title)
 			scope.img_header = post.image;
-			console.log('prelink')
 			_linkSloppyNotes()
-			console.log('postlink')
+			$('meta#og-meta-title').attr('content', post.title)
+			$('meta#og-meta-image').attr('content', post.image)
+			$('meta#og-meta-url').attr('content', 'http://georgenishimura.com/blog/post/' + post.url)
 			return
 		return
 ]
