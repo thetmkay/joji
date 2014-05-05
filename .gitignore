@@ -1,7 +1,8 @@
 node_modules
 config.js
 posts/final/*
-src
+src/**/**/*
+src/**/**/**/*
 src/*
 bower.json
 bower_components
