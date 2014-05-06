@@ -1,6 +1,6 @@
 directives = angular.module 'joji.directives', [] if !directives
 
-directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostService, $stateParams) ->
+directives.directive 'blogPost', ['getPostService', '$stateParams', 'brainService', (getPostService, $stateParams, brainService) ->
 	restrict: 'E'
 	scope: true
 	replace: false
@@ -50,9 +50,9 @@ directives.directive 'blogPost', ['getPostService', '$stateParams', (getPostServ
 			element.find("#postTitle").html(post.title)
 			scope.img_header = post.image;
 			_linkSloppyNotes()
-			$('meta#og-meta-title').attr('content', post.title)
-			$('meta#og-meta-image').attr('content', post.image)
-			$('meta#og-meta-url').attr('content', 'http://georgenishimura.com/blog/post/' + post.url)
+			brainService.setTitle('Blog | ' + post.title)
+			brainService.setImage(post.image)
+			brainService.setUrl('/blog/post/' + post.url);
 			return
 		return
 ]

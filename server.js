@@ -55,6 +55,7 @@ app.use(app.router);
  */
 
 // serve index and view partials
+app.get('/common/:name', routes.common);
 app.get('/home/:name', routes.home);
 app.get('/blog/:name', routes.blog);
 app.get('/home/slides/:name', routes.slides)
