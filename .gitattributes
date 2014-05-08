@@ -1,0 +1,3 @@
+src merge=ours
+bower.json merge=ours
+.gitignore merge=ours

@@ -20,6 +20,12 @@ exports.home = function(req, res) {
 	res.render('home/' + name);
 };
 
+exports.common = function(req, res) {
+	console.log("common");
+	var name = req.params.name;
+	res.render('common/' + name);
+};
+
 exports.slides = function(req, res) {
 	var name = req.params.name;
 	res.render('home/slides/' + name)
