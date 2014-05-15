@@ -3,6 +3,8 @@ config.js
 posts/final/*
 src/**/**/*
 src/**/**/**/*
+src/stylus/*.styl
+src/coffee/**/**/*.coffee
 src/*
 bower.json
 bower_components
