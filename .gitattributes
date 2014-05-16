@@ -2,4 +2,5 @@ src merge=ours
 src/stylus/*.styl merge=ours
 src/coffee/**/**/*.coffee merge=ours
 src/coffee/*.coffee merge=ours
-
+bower.json merge=ours
+.gitignore merge=ours
