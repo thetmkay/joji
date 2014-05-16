@@ -34378,6 +34378,30 @@ angular.module('ui.router.compat')
     directives = angular.module('joji.directives', []);
   }
 
+  directives.directive('homePage', [
+    function() {
+      return {
+        restrict: 'E',
+        scope: true,
+        replace: true,
+        templateUrl: 'home/page',
+        link: function(scope, element, attrs) {
+          return FocusTrack({
+            container: '.background-container',
+            image: '#image',
+            stretchImage: false,
+            targetBox: [650, 250, 710, 310],
+            bindToResize: true
+          }).focus();
+        }
+      };
+    }
+  ]);
+
+  if (!directives) {
+    directives = angular.module('joji.directives', []);
+  }
+
   directives.directive('cerebralCortex', [
     '$state', 'brainService', function($state, brainService) {
       return {
