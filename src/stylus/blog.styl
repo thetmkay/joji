@@ -18,6 +18,9 @@
     a:active
         color #cc8400
 
+#bloglist-background
+    background-color #fff
+
 .blogpost-link
     min-height 8em
     width 100%
@@ -27,12 +30,12 @@
     vertical-align middle
     margin 0
     cursor pointer
-    border-bottom solid 1px white
+    border solid 4px #fff
     overflow-y visible
 
 .blog-list-anchor
-    background-color #222
-    color #333
+    background-color #fff
+    color #111
     text-align center
     vertical-align middle
     line-height 3em
@@ -55,12 +58,12 @@
 
 .slug-title
     font-size 3em
-    font-family 'Montserrat'
+    font-family 'Montserrat' Arial sans-serif
     font-weight 700
     // line-height 3em
 
 .slug-date
-    font-family 'Open Sans'
+    font-family 'Open Sans' Helvetica sans-serif
     font-weight bold
     line-height .75em
     font-size .75em
@@ -70,13 +73,14 @@
     visibility visible !important
     background-image none !important
     background-color black
-    background-color rgba(0,0,0,.7)
+    background-color rgba(0,0,0,.8)
     color white
 
 #bloglist
     overflow-y scroll
     margin auto
-    max-width 50em
+    max-width 55em
+    background-color #fff
 
 // *
 //  -webkit-margin-before: 0
@@ -104,7 +108,7 @@ body
             display block
             color white
             a
-                font-family 'Montserrat'
+                font-family 'Montserrat' Arial sans-serif
                 padding .5em
         > a
             margin-top 1em
@@ -135,11 +139,13 @@ a
             font-weight 800
     blockquote
         padding 2em 0 2em 4em
-        *
-            font-family 'Roboto'
-            color #666
+        background-color #eee
+        font-family 'Roboto Slab' courier sans-serif
         p
-            margin 0 !important
+            margin .25em !important
+    code
+        background-color #eee
+        font-family 'Ubuntu' courier sans-serif
 
 .blog-header
     width 100%
@@ -176,9 +182,9 @@ a
 
 .post-title
     // text-decoration underline
-    font-family 'Montserrat'
-    font-weight 700
-    font-size 2em
+    font-family 'Bitter' Arial sans-serif
+    font-weight 400
+    font-size 2.2em
     margin .75em 0
     // border-bottom solid 2px black
     display inline-block
@@ -194,13 +200,15 @@ a
     h1,h2,h3,h4,h5,h6
         margin 1em 0
         padding-left 4em
+    ul,ol
+        margin-left 2em
 
 .blog-page
-    font-family 'Open Sans'
+    font-family 'Open Sans' Helvetica sans-serif
     font-size 1em
 
 .sloppy-note
-    border-bottom dashed 1px
+    background-color #FEF0DB
     color black !important
     font-weight normal !important
     cursor pointer
