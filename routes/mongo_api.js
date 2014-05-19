@@ -47,7 +47,8 @@ exports.getPosts = function(callback) {
 			title:true,
 			image:true,
 			url:true,
-			shown_date: true
+			shown_date: true,
+			color: true
 		},
 		{
 			sort:"shown_date"
