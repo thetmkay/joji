@@ -99,7 +99,7 @@ module.exports = function(grunt) {
             banner: '/*! <%= pkg.name %> <%= grunt.template.today("dd-mm-yyyy") %> */\n'
         },
         files: {
-            'public/css/<%= pkg.name %>.css': ['src/stylus/*.styl']
+            'public/css/<%= pkg.name %>.css': ['src/stylus/app.styl']
         }
       }
     }

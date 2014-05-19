@@ -7,16 +7,10 @@ directives.directive 'blogSlug', [ '$state', ($state) ->
 		post: '=forPost'
 	templateUrl: 'blog/slug'
 	link: (scope, elem, attrs) ->
-		$elem = angular.element(elem).parent()
+		$elem = angular.element(elem)
 
 		if(!Modernizr.touch)
-			console.log(Modernizr)
-			$elem.mouseover () ->
-				$elem.find('.slug-container').addClass('slug-hover')
-			$elem.mouseleave () ->
-				$elem.find('.slug-container').removeClass('slug-hover')
-		
-		console.log $elem
+			$elem.addClass('blogpost-link-hover')
 
 		$elem.click () ->
 			$state.go 'blog.post',

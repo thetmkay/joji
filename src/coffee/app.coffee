@@ -23,7 +23,7 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 		.state 'blog.post',
 			url: '/post/:posturl'
 			parent: 'blog'
-			templateUrl: 'blog/page'
+			templateUrl: 'blog/page',
 			onEnter: ['$stateParams', 'getPostService', ($stateParams, getPostService) ->
 				getPostService.retrievePostData $stateParams.posturl
 			]

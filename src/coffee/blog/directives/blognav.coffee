@@ -6,7 +6,7 @@ directives.directive 'blogNav', ['getPostService', '$stateParams', (getPostServi
 	replace: false
 	templateUrl: 'blog/navmenu'
 	link: (scope,element,attrs) ->
-		console.log('bbbbbbb')
+		angular.element(element).hide()
 		getPostService.getPost($stateParams.posturl).then (post)=>
 			# console.log(post);
 			if(post.prev_url)
@@ -15,6 +15,8 @@ directives.directive 'blogNav', ['getPostService', '$stateParams', (getPostServi
 			if(post.next_url)
 				scope.next_url = post.next_url
 				scope.next_title = post.next_title
+			angular.element(element).show()
 			return
+
 		return
 ]
