@@ -7,18 +7,14 @@ directives.directive 'blogSlug', [ '$state', ($state) ->
 		post: '=forPost'
 	templateUrl: 'blog/slug'
 	link: (scope, elem, attrs) ->
-		$elem = angular.element elem
+		$elem = angular.element(elem).parent()
 
 		if(!Modernizr.touch)
 			console.log(Modernizr)
 			$elem.mouseover () ->
-				$elem.find('.slug-container').addClass('show-on-hover')
+				$elem.find('.slug-container').addClass('slug-hover')
 			$elem.mouseleave () ->
-				$elem.find('.slug-container').removeClass('show-on-hover')
-
-		else
-			console.log('touch device')
-			$elem.find('.slug-container').addClass('show-on-hover')
+				$elem.find('.slug-container').removeClass('slug-hover')
 		
 		console.log $elem
 

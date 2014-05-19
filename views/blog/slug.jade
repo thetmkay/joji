@@ -1,4 +1,5 @@
-.blogpost-link(style="background-image:url('{{post.image}}');")
-	.slug-container.black-text-stroke
-		p.slug-title {{post.title}}
-		p.slug-date {{post.date_stamp}}
+.blogpost-link
+	.slug-container(style="border-left: solid 5px {{post.color}}"")
+		div.slug-date {{post.date_stamp}}
+		div.slug-title {{post.title}}
+		
