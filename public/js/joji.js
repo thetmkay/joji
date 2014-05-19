@@ -34212,7 +34212,7 @@ angular.module('ui.router.compat')
         templateUrl: 'blog/navmenu',
         link: function(scope, element, attrs) {
           var _this = this;
-          console.log('bbbbbbb');
+          angular.element(element).hide();
           getPostService.getPost($stateParams.posturl).then(function(post) {
             if (post.prev_url) {
               scope.prev_url = post.prev_url;
@@ -34222,6 +34222,7 @@ angular.module('ui.router.compat')
               scope.next_url = post.next_url;
               scope.next_title = post.next_title;
             }
+            angular.element(element).show();
           });
         }
       };
@@ -34304,18 +34305,8 @@ angular.module('ui.router.compat')
           var $elem;
           $elem = angular.element(elem);
           if (!Modernizr.touch) {
-            console.log(Modernizr);
-            $elem.mouseover(function() {
-              return $elem.find('.slug-container').addClass('show-on-hover');
-            });
-            $elem.mouseleave(function() {
-              return $elem.find('.slug-container').removeClass('show-on-hover');
-            });
-          } else {
-            console.log('touch device');
-            $elem.find('.slug-container').addClass('show-on-hover');
+            $elem.addClass('blogpost-link-hover');
           }
-          console.log($elem);
           $elem.click(function() {
             return $state.go('blog.post', {
               posturl: scope.post.url
