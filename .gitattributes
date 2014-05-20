@@ -1,5 +1,6 @@
 src merge=ours
 src/stylus/*.styl merge=ours
+src/stylus/blog.style merge=ours
 src/coffee/**/**/**/*.coffee merge=ours
 src/coffee/*.coffee merge=ours
 bower.json merge=ours
