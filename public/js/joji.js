@@ -34298,6 +34298,21 @@ angular.module('ui.router.compat')
               console.log(post.date_stamp);
             });
             scope.posts = posts;
+            scope.post_filter = '';
+            scope.changeFilter = function(filter, event) {
+              var $elem;
+              if (filter === scope.post_filter) {
+                scope.post_filter = '';
+                return;
+              }
+              $elem = angular.element(event.target);
+              scope.post_filter = filter;
+              $elem.siblings('.active').removeClass('active');
+              $elem.addClass('active');
+            };
+            scope.filterFn = function(actual) {
+              return !scope.post_filter || angular.equals(actual.category, scope.post_filter);
+            };
           });
         }
       };
