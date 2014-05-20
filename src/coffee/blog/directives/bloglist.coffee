@@ -19,12 +19,13 @@ directives.directive 'blogList', [ 'getPostsService', 'brainService', (getPostsS
 			scope.posts = posts
 			scope.post_filter = ''
 			scope.changeFilter = (filter, event) ->
+				$elem.siblings('.active').removeClass('active')
 				if(filter is scope.post_filter)
 					scope.post_filter = ''
-					return 
+					return
 				$elem = angular.element(event.target)
 				scope.post_filter = filter
-				$elem.siblings('.active').removeClass('active')
+
 				$elem.addClass('active')
 				return
 			scope.filterFn = (actual) ->
