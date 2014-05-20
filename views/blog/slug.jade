@@ -1,5 +1,8 @@
 .blogpost-link
-	.slug-container(class="list-{{post.category}}")
-		div.slug-date {{post.date_stamp}}
-		div.slug-title {{post.title}}
+	.slug-container
+		.slug-left.slug-block
+			.slug-title {{post.title}}
+			.slug-date {{post.shown_date | date : 'shortDate'}}
+		.slug-right.slug-block
+			.slug-index(class="list-{{post.category}}") {{post.index}}
 
