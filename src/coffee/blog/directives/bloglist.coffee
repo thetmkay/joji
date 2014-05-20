@@ -10,8 +10,9 @@ directives.directive 'blogList', [ 'getPostsService', 'brainService', (getPostsS
 		brainService.setUrl("/blog")
 		brainService.setTitle('Recent Blog Posts')
 		getPostsService.getPosts().then (posts) =>
-			posts.forEach((post) ->
-				post.date_stamp = new Date(post.shown_date).toLocaleDateString()
+			posts.forEach((post, index) ->
+				#post.date_stamp = new Date(post.shown_date).toLocaleDateString()
+				post.index = index+1
 				console.log(post.date_stamp);
 				return
 			);

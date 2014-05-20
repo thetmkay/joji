@@ -4,6 +4,12 @@
 
 #bloglist-background
 	#bloglist
-		blog-slug(ng-repeat="post in posts", for-post="post")
+		ul#blog-legend
+			li.list-meta meta
+			li.list-thoughts thoughts
+			li.list-tech tech
+			li.list-random random
+			li.list-journal journal
+		blog-slug(ng-repeat="post in posts | orderBy: 'index' : true", for-post="post")
 		//- .blog-list-anchor
 		//- 	p.slug-title no more posts

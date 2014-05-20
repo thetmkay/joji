@@ -48,7 +48,8 @@ exports.getPosts = function(callback) {
 			image:true,
 			url:true,
 			shown_date: true,
-			category: true
+			category: true,
+			id: true
 		},
 		{
 			sort:"shown_date"
