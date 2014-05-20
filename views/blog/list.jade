@@ -3,13 +3,13 @@
 //- 		p {{post.title}}
 
 #bloglist-background
-	#bloglist
+	#bloglist(ng-init="post_filter=''")
 		ul#blog-legend
-			li.list-meta meta
-			li.list-thoughts thoughts
-			li.list-tech tech
-			li.list-random random
-			li.list-journal journal
-		blog-slug(ng-repeat="post in posts | orderBy: 'index' : true", for-post="post")
+			li.list-meta(ng-click="changeFilter('meta', $event)") meta
+			li.list-thoughts(ng-click="changeFilter('thoughts', $event)") thoughts
+			li.list-tech(ng-click="changeFilter('tech', $event)") tech
+			li.list-random(ng-click="changeFilter('random', $event)") random
+			li.list-journal(ng-click="changeFilter('journal', $event)") journal
+		blog-slug(ng-repeat="post in posts | orderBy: 'index' : true | filter: filterFn", for-post="post")
 		//- .blog-list-anchor
 		//- 	p.slug-title no more posts

@@ -8,6 +8,8 @@ alizarin = #EF4140
 nieman_orange = #F37542
 nieman_gray = #3A3b3C
 
+active_change = 15
+
 .list-thoughts
 	background-color indigo
 
@@ -22,3 +24,18 @@ nieman_gray = #3A3b3C
 
 .list-journal
 	background-color slate
+
+.list-thoughts.active
+	background-color darken(indigo,active_change)
+
+.list-tech.active
+	background-color darken(nieman_teal,active_change)
+
+.list-random.active
+	background-color darken(jonquil,active_change)
+
+.list-meta.active
+	background-color darken(crimson,active_change)
+
+.list-journal.active
+	background-color darken(slate,active_change)
