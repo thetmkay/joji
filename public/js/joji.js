@@ -34302,11 +34302,12 @@ angular.module('ui.router.compat')
             scope.changeFilter = function(filter, event) {
               var $elem;
               $elem = angular.element(event.target);
-              $elem.siblings('.active').removeClass('active');
               if (filter === scope.post_filter) {
                 scope.post_filter = '';
+                $elem.removeClass('active');
                 return;
               }
+              $elem.siblings('.active').removeClass('active');
               scope.post_filter = filter;
               $elem.addClass('active');
             };
