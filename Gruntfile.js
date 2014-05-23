@@ -22,7 +22,7 @@ module.exports = function(grunt) {
         separator: ';'
       },
       dist: {
-        src: ['bower_components/jquery/dist/jquery.js', 'bower_components/QuickShare/dist/quickshare.js','bower_components/angular/angular.js','bower_components/angular-resource/angular-resource.js', 'src/js/lib/angular-ui-router.js', 'src/js/**/*.js', 'src/js/*.js'],
+        src: ['bower_components/jquery/dist/jquery.js', 'bower_components/QuickShare/dist/quickshare.js', 'bower_components/CascadeStream/dist/cascadestream.js','bower_components/angular/angular.js','bower_components/angular-resource/angular-resource.js', 'src/js/lib/angular-ui-router.js', 'src/js/**/*.js', 'src/js/*.js'],
         dest: 'public/js/<%= pkg.name %>.js'
       }
     },

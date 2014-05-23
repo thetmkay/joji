@@ -9,9 +9,9 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 	$urlRouterProvider.otherwise '/blog'
 
 	$stateProvider
-		# .state 'home',
-		# 	url: '/'
-		# 	templateUrl: 'home/main'
+		.state 'home',
+			url: '/'
+			templateUrl: 'home/page'
 		.state 'blog',
 			url: '/blog'
 			abstract: true
