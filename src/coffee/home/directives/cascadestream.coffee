@@ -1,22 +1,17 @@
 directives = angular.module 'joji.directives', [] if !directives
 
-directives.directive 'cascadeStream', [() ->
+directives.directive 'cascadeStream', ['$window', ($window) ->
 	restrict: 'E'
 	scope: true
 	replace: false
 	templateUrl: 'home/cascadestream'
 	link: (scope,element,attrs) ->
-		
-		if(!Modernizr.touch)
+		console.log Modernizr
+		if($window.innerWidth >= 400)
 			angular.element('document').cascadeStream()
 
 		$elem = angular.element(element)
-		$elem.find('#bio-content').click ()->
-			console.log 'click'
-			$(this).find('.bio-part').addClass('bio-expanded')
-			$(this).find('.bio-arrow i').addClass('fa-arrow-down')
-			$(this).find('.bio-arrow i').removeClass('fa-arrow-right')
-			$(this).unbind('click')
+
 		return
 
 ]

@@ -9385,6 +9385,7 @@ return jQuery;
 				if($siblings.length === 1) {
 					$(element).removeClass('cs-not-full')
 					$(element).addClass('cs-full');
+					$(element).children('.cs-hidden').removeClass('cs-hidden');
 				}
 
 				$(element).css({
@@ -34549,7 +34550,7 @@ angular.module('ui.router.compat')
   }
 
   directives.directive('cascadeStream', [
-    function() {
+    '$window', function($window) {
       return {
         restrict: 'E',
         scope: true,
@@ -34557,17 +34558,11 @@ angular.module('ui.router.compat')
         templateUrl: 'home/cascadestream',
         link: function(scope, element, attrs) {
           var $elem;
-          if (!Modernizr.touch) {
+          console.log(Modernizr);
+          if ($window.innerWidth >= 400) {
             angular.element('document').cascadeStream();
           }
           $elem = angular.element(element);
-          $elem.find('#bio-content').click(function() {
-            console.log('click');
-            $(this).find('.bio-part').addClass('bio-expanded');
-            $(this).find('.bio-arrow i').addClass('fa-arrow-down');
-            $(this).find('.bio-arrow i').removeClass('fa-arrow-right');
-            return $(this).unbind('click');
-          });
         }
       };
     }
