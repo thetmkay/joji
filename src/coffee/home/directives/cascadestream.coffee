@@ -6,14 +6,17 @@ directives.directive 'cascadeStream', [() ->
 	replace: false
 	templateUrl: 'home/cascadestream'
 	link: (scope,element,attrs) ->
-		scope.rows = [0,1,2]
-		scope.bio = ["<p>Hello World</p>","<p>Hello World</p>","<p>Hello World</p>"]
-		scope.about = ["<p>Hi World</p>","<p>Hi World</p>","<p>Hi World</p>"]
-		scope.third = ["<p>Hello Universe</p>","<p>Hello Universe</p>","<p>Hello Universe</p>"]
+		
+		if(!Modernizr.touch)
+			angular.element('document').cascadeStream()
 
-		console.log(angular.element('.cs-block'));
-		angular.element('document').cascadeStream();
-
+		$elem = angular.element(element)
+		$elem.find('#bio-content').click ()->
+			console.log 'click'
+			$(this).find('.bio-part').addClass('bio-expanded')
+			$(this).find('.bio-arrow i').addClass('fa-arrow-down')
+			$(this).find('.bio-arrow i').removeClass('fa-arrow-right')
+			$(this).unbind('click')
 		return
 
 ]

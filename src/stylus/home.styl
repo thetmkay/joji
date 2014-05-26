@@ -2,7 +2,7 @@
 //Page
 cascade-stream
 	width 100%
-	min-height 10%
+	min-height 20%
 	display block
 	background-color gray
 
@@ -12,8 +12,8 @@ cascade-stream
 page-flipper
 	display block
 	width 100%
-	height 90%
-	background-color silver
+	height 80%
+	background-color light_gray
 
 //Cascade Stream
 .cs-block
@@ -30,16 +30,59 @@ page-flipper
 	width 100% !important
 
 .cs-not-full
-	width 33%
+	width 33.3%
 
-.stream-one
-	background-color alizarin
-	border-top solid 1em darken(alizarin,10)
+.cs-hidden
+	display none
+
+.touch .cs-hidden
+	display initial
 
 .stream-two
-	background-color indigo
-	border-top solid 1em darken(indigo,10)
+	background-color darken(n_teal,0)
+	border-top solid 1em darken(n_teal,10)
+
+.stream-one
+	background-color darken(alizarin,0)
+	border-top solid 1em darken(alizarin,10)
 
 .stream-three
-	background-color nieman_teal
-	border-top solid 1em darken(nieman_teal,10)
+	background-color darken(jonquil,0)
+	border-top solid 1em darken(jonquil,10)
+
+#bio-content
+	width 100%
+
+#bio-content .bio-part:not(.bio-expanded)
+	width 30%
+	display inline-block
+	.img-container
+		border dotted 3px white
+		border-radius 50%
+		margin 1em
+		padding 20px
+		width 140px
+		height 140px
+		display inline-block
+	.img-info
+		display none
+
+#bio-content .bio-arrow:not(.bio-expanded)
+	width 5% !important
+
+.bio-part
+	div
+		width 50%
+
+#bio-content .bio-expanded
+	div
+		display inline-block
+
+.bio-expanded
+	width 100%
+
+.bio-part:not(.bio-expanded)
+	width 33%
+
+ul
+	text-align left
