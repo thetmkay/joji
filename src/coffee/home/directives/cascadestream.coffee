@@ -10,6 +10,11 @@ directives.directive 'cascadeStream', ['$window', ($window) ->
 		if($window.innerWidth >= 400)
 			angular.element('document').cascadeStream()
 
+		angular.element('.cs-block').on 'click', () ->
+			console.log angular.element(this).position()
+			angular.element($window).scrollTop(angular.element(this).position().top - 10)
+			return
+
 		$elem = angular.element(element)
 
 		return

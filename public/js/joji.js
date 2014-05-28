@@ -34312,6 +34312,59 @@ angular.module('ui.router.compat')
     services = angular.module('joji.services', []);
   }
 
+  services.service('getHomePageService', [
+    function() {
+      var developer, griffin, index, lfc, pages, ultimate;
+      developer = {
+        text: 'am a developer',
+        color: '#111',
+        highlight: '#ECC850',
+        bg: 'transparent',
+        dialogbg: 'transparent',
+        url: 'http://www.github.com/thetmkay'
+      };
+      griffin = {
+        text: 'help build robots',
+        color: '#FFF',
+        highlight: '#000',
+        bg: 'transparent',
+        dialogbg: '#000',
+        url: 'http://www.griffins1884.com'
+      };
+      lfc = {
+        text: 'support Liverpool FC',
+        color: '#FFF',
+        highlight: '#8A1722',
+        bg: 'transparent',
+        dialogbg: '#8A1722',
+        url: 'http://www.liverpoolfc.com'
+      };
+      ultimate = {
+        text: 'play ultimate',
+        color: '#111',
+        highlight: '#ECC850',
+        bg: 'transparent',
+        dialogbg: '#0074D9',
+        url: 'http://www.twitter.com/icdiscdoctors'
+      };
+      pages = [developer, griffin, lfc, ultimate];
+      index = 0;
+      this.getPage = function() {
+        return pages[index];
+      };
+      this.getNextPage = function() {
+        index++;
+        index %= pages.length;
+        return pages[index];
+      };
+      return this;
+    }
+  ]);
+
+  if (!services) {
+    services = angular.module('joji.services', []);
+  }
+
   services.service('brainService', [
     '$location', function($location) {
       var _base_url;
@@ -34562,6 +34615,10 @@ angular.module('ui.router.compat')
           if ($window.innerWidth >= 400) {
             angular.element('document').cascadeStream();
           }
+          angular.element('.cs-block').on('click', function() {
+            console.log(angular.element(this).position());
+            angular.element($window).scrollTop(angular.element(this).position().top - 10);
+          });
           $elem = angular.element(element);
         }
       };
@@ -34589,13 +34646,34 @@ angular.module('ui.router.compat')
   }
 
   directives.directive('pageFlipper', [
-    function() {
+    '$window', 'getHomePageService', function($window, getHomePageService) {
       return {
         restrict: 'E',
         scope: true,
         replace: false,
         templateUrl: 'home/pageflipper',
-        link: function(scope, element, attrs) {}
+        link: function(scope, element, attrs) {
+          var first_page, setPage,
+            _this = this;
+          angular.element(element).css({
+            'height': ($window.innerHeight - 100) + 'px'
+          });
+          first_page = getHomePageService.getPage();
+          setPage = function(page) {
+            scope.text = page.text;
+            scope.highlight = page.highlight;
+            scope.color = page.color;
+            scope.bg = page.bg;
+            scope.dialogbg = page.dialogbg;
+            scope.url = page.url;
+          };
+          setPage(first_page);
+          scope.changeBackground = function() {
+            var newPage;
+            newPage = getHomePageService.getNextPage();
+            setPage(newPage);
+          };
+        }
       };
     }
   ]);

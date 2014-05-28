@@ -1,1 +1,10 @@
-span helloworld
+.page-flipper-container(style="background:{{bg}};color:{{color}}")
+	.page-flipper-control.page-flipper-control-background(style="background:{{dialogbg}}")
+	.page-flipper-control
+		.page-flipper-control-content
+			.page-flipper-top Hi, I'm George.
+			.page-flipper-mid
+				span and I 
+				span.page-flipper-controller(ng-click="changeBackground()", style="background-color:{{highlight}}") {{text}} 
+			.page-flipper-bottom 
+				a(href="{{url}}") check it out
