@@ -6,5 +6,6 @@
 			.page-flipper-mid
 				span and I 
 				span.page-flipper-controller(ng-click="changeBackground()", style="background-color:{{highlight}}") {{text}} 
-			.page-flipper-bottom 
+			.page-flipper-bottom(class="{{linkclass}}") 
 				a(href="{{url}}") check it out
+	.photo-attribution(ng-show=attribution) {{attribution}}

@@ -10,6 +10,9 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 			'height': ($window.innerHeight - 100) + 'px';
 		)
 
+		getHomePageService.loadImages()
+		
+
 		first_page = getHomePageService.getPage()
 		
 		setPage = (page) =>
@@ -19,6 +22,8 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 			scope.bg = page.bg
 			scope.dialogbg = page.dialogbg
 			scope.url = page.url
+			scope.linkclass = page.linkclass
+			scope.attribution = page.attribution
 			return
 
 		setPage(first_page)
