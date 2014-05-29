@@ -30,7 +30,7 @@ services.service 'getHomePageService', [() ->
 		text: 'help build robots',
 		color: '#FFF',
 		highlight: '#8A1722'
-		bg: '#fff left top/cover url(' + image_urls[0] + ') no-repeat',
+		bg: '#fff center center/cover url(' + image_urls[0] + ') no-repeat',
 		dialogbg:'#000',
 		url: 'http://www.griffins1884.com'
 		linkclass: 'dark-theme'
@@ -59,8 +59,8 @@ services.service 'getHomePageService', [() ->
 		highlight: '#18A08C'
 		bg: '#fff left top/cover url(' + image_urls[3] + ') no-repeat' ,
 		dialogbg:'#3A3B3C',
-		url: 'http://www.twitter.com/icdiscdoctors'
-		linkclass: 'dark-theme'
+		url: false
+		linkclass: 'hidden'
 
 	pages = [developer,griffin, lfc, ultimate, onigiris]
 	index = 0
