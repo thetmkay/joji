@@ -12,8 +12,9 @@ directives.directive 'cascadeStream', ['$window', ($window) ->
 
 		angular.element('.cs-block').on 'click', () ->
 			console.log angular.element(this).position()
-			angular.element($window).scrollTop(angular.element(this).position().top - 10)
-			return
+			angular.element('html,body').animate(
+				scrollTop: (angular.element(this).position().top - 10)
+			)
 
 		$elem = angular.element(element)
 
