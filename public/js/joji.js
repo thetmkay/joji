@@ -9350,7 +9350,66 @@ return jQuery;
             }
         });
     };
-})(jQuery, window);;/**
+})(jQuery, window);;(function($) {
+
+	'use strict';
+
+	$.fn.cascadeStream = function() {
+		$('.cs-block').on('click', function(event) {
+			var $this = $(this);
+			if($this.hasClass('cs-full')) {
+				return
+			}
+			// $(this).css({
+			// 	display: "block"
+			// });
+			$(this).removeClass('cs-not-full');
+			$(this).addClass('cs-full');
+			$(this).unbind('click');
+
+			$(this).children('.cs-hidden').removeClass('cs-hidden');
+
+			// $this.detach();
+
+			var $prev = $this.prevAll('.cs-full');
+
+			if($prev.length > 0)
+				$prev.first().after($this);
+			else
+				$this.parent().prepend($this);
+
+			var $siblings = $this.siblings('.cs-not-full'),
+				sibl_width = 100/$siblings.length;
+
+			$siblings.each(function(index,element){
+				if($siblings.length === 1) {
+					$(element).removeClass('cs-not-full')
+					$(element).addClass('cs-full');
+					$(element).children('.cs-hidden').removeClass('cs-hidden');
+				}
+
+				$(element).css({
+					width: (sibl_width-1) + '%'
+				});
+			});
+
+			// var next = $(this).nextUntil('.full'),
+			// 	next_width = 100/next.length;
+			// next.each(function(index,element){
+			// 	if(next.length === 1) {
+			// 		$(element).removeClass('not-full')
+			// 		$(element).addClass('full');
+			// 	}
+
+			// 	$(element).css({
+			// 		width: next_width + '%'
+			// 	});
+			// });
+		});
+	};
+
+})(jQuery);
+;/**
  * @license AngularJS v1.2.17-build.156+sha.3d0b49c
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
@@ -34253,6 +34312,81 @@ angular.module('ui.router.compat')
     services = angular.module('joji.services', []);
   }
 
+  services.service('getHomePageService', [
+    function() {
+      var developer, griffin, image_urls, index, lfc, onigiris, pages, ultimate;
+      image_urls = ['https://farm3.staticflickr.com/2896/14085436883_38cf596d70_b.jpg', 'https://farm4.staticflickr.com/3784/11276270996_ad307bfb5d_h.jpg', 'http://i.imgur.com/ogqWv1E.jpg', 'http://i.imgur.com/PvjQiCq.jpg'];
+      this.loadImages = function() {
+        var images;
+        images = [];
+        image_urls.forEach(function(element, index) {
+          images.push(new Image());
+          images[index].src = element;
+        });
+      };
+      developer = {
+        text: 'am a developer',
+        color: '#111',
+        highlight: '#ECC850',
+        bg: 'transparent',
+        dialogbg: 'transparent',
+        url: 'http://www.github.com/thetmkay',
+        linkclass: 'dark-theme'
+      };
+      griffin = {
+        text: 'help build robots',
+        color: '#FFF',
+        highlight: '#8A1722',
+        bg: '#fff left top/cover url(' + image_urls[0] + ') no-repeat',
+        dialogbg: '#000',
+        url: 'http://www.griffins1884.com',
+        linkclass: 'dark-theme'
+      };
+      lfc = {
+        text: 'support Liverpool FC',
+        color: '#FFF',
+        highlight: '#574D72',
+        bg: '#fff left top/cover url(' + image_urls[1] + ') no-repeat',
+        dialogbg: '#8A1722',
+        linkclass: 'dark-theme',
+        attribution: 'photo by Ruaraidh Gillies'
+      };
+      ultimate = {
+        text: 'play ultimate',
+        color: '#fff',
+        highlight: '#EF4140',
+        bg: '#fff left top/cover url(' + image_urls[2] + ') no-repeat',
+        dialogbg: '#574D72',
+        url: 'http://www.twitter.com/icdiscdoctors',
+        linkclass: 'dark-theme'
+      };
+      onigiris = {
+        text: 'love onigiris',
+        color: '#fff',
+        highlight: '#18A08C',
+        bg: '#fff left top/cover url(' + image_urls[3] + ') no-repeat',
+        dialogbg: '#3A3B3C',
+        url: 'http://www.twitter.com/icdiscdoctors',
+        linkclass: 'dark-theme'
+      };
+      pages = [developer, griffin, lfc, ultimate, onigiris];
+      index = 0;
+      this.getPage = function() {
+        return pages[index];
+      };
+      this.getNextPage = function() {
+        index++;
+        index %= pages.length;
+        return pages[index];
+      };
+      return this;
+    }
+  ]);
+
+  if (!services) {
+    services = angular.module('joji.services', []);
+  }
+
   services.service('brainService', [
     '$location', function($location) {
       var _base_url;
@@ -34490,6 +34624,89 @@ angular.module('ui.router.compat')
     directives = angular.module('joji.directives', []);
   }
 
+  directives.directive('cascadeStream', [
+    '$window', function($window) {
+      return {
+        restrict: 'E',
+        scope: true,
+        replace: false,
+        templateUrl: 'home/cascadestream',
+        link: function(scope, element, attrs) {
+          var $elem;
+          console.log(Modernizr);
+          if ($window.innerWidth >= 400) {
+            angular.element('document').cascadeStream();
+          }
+          angular.element('.cs-block').on('click', function() {
+            console.log(angular.element(this).position());
+            angular.element($window).scrollTop(angular.element(this).position().top - 10);
+          });
+          $elem = angular.element(element);
+        }
+      };
+    }
+  ]);
+
+  if (!directives) {
+    directives = angular.module('joji.directives', []);
+  }
+
+  directives.directive('homePage', [
+    function() {
+      return {
+        restrict: 'E',
+        scope: true,
+        replace: true,
+        templateUrl: 'home/page',
+        link: function(scope, element, attrs) {}
+      };
+    }
+  ]);
+
+  if (!directives) {
+    directives = angular.module('joji.directives', []);
+  }
+
+  directives.directive('pageFlipper', [
+    '$window', 'getHomePageService', function($window, getHomePageService) {
+      return {
+        restrict: 'E',
+        scope: true,
+        replace: false,
+        templateUrl: 'home/pageflipper',
+        link: function(scope, element, attrs) {
+          var first_page, setPage,
+            _this = this;
+          angular.element(element).css({
+            'height': ($window.innerHeight - 100) + 'px'
+          });
+          getHomePageService.loadImages();
+          first_page = getHomePageService.getPage();
+          setPage = function(page) {
+            scope.text = page.text;
+            scope.highlight = page.highlight;
+            scope.color = page.color;
+            scope.bg = page.bg;
+            scope.dialogbg = page.dialogbg;
+            scope.url = page.url;
+            scope.linkclass = page.linkclass;
+            scope.attribution = page.attribution;
+          };
+          setPage(first_page);
+          scope.changeBackground = function() {
+            var newPage;
+            newPage = getHomePageService.getNextPage();
+            setPage(newPage);
+          };
+        }
+      };
+    }
+  ]);
+
+  if (!directives) {
+    directives = angular.module('joji.directives', []);
+  }
+
   directives.directive('cerebralCortex', [
     '$state', 'brainService', function($state, brainService) {
       return {
@@ -34518,7 +34735,10 @@ angular.module('ui.router.compat')
   app.config([
     '$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider) {
       $urlRouterProvider.otherwise('/blog');
-      $stateProvider.state('blog', {
+      $stateProvider.state('home', {
+        url: '/',
+        templateUrl: 'home/page'
+      }).state('blog', {
         url: '/blog',
         abstract: true,
         template: "<ui-view/>"
