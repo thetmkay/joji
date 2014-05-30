@@ -12,6 +12,10 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 		.state 'home',
 			url: '/'
 			templateUrl: 'home/page'
+			onEnter: ['brainService', (brainService) ->
+				brainService.setUrl("/")
+				brainService.setTitle("George's Site")
+			]
 		.state 'blog',
 			url: '/blog'
 			abstract: true
