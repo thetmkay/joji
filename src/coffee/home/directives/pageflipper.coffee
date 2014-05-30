@@ -17,12 +17,10 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 
 		setPage = (page) =>
 			scope.text = page.text
-			scope.highlight = page.highlight
 			scope.color = page.color
 			scope.bg = page.bg
 			scope.dialogbg = page.dialogbg
 			scope.url = page.url
-			scope.linkclass = page.linkclass
 			scope.linktext = page.linktext
 			scope.opacity = page.opacity
 			return

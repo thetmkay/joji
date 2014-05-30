@@ -23,7 +23,6 @@ services.service 'getHomePageService', [() ->
 		bg: 'transparent'
 		dialogbg:'transparent'
 		url: 'http://www.github.com/thetmkay'
-		linkclass: 'dark-theme'
 		linktext: 'check out my github'
 		opacity: 0
 
@@ -33,16 +32,14 @@ services.service 'getHomePageService', [() ->
 		bg: '#fff center center/cover url(' + image_urls[0] + ') no-repeat'
 		dialogbg:'#000'
 		url: 'http://www.griffins1884.com'
-		linkclass: 'dark-theme'
 		linktext: 'learn about the Griffins'
 		opacity: 0.5
 
 	lfc =
 		text: 'support Liverpool FC'
 		color: '#FFF'
-		bg: '#fff center top/cover url(' + image_urls[1] + ') no-repeat'
+		bg: '#fff center center/cover url(' + image_urls[1] + ') no-repeat'
 		dialogbg:'#8A1722'
-		linkclass: 'dark-theme'
 		linktext: 'photo by RuaraidhG'
 		url: 'https://www.flickr.com/photos/ruaraidhg/'
 		opacity: 0.2
@@ -50,10 +47,9 @@ services.service 'getHomePageService', [() ->
 	ultimate =
 		text: 'play ultimate'
 		color: '#fff'
-		bg: '#fff center top/cover url(' + image_urls[2] + ') no-repeat'
+		bg: '#fff center center/cover url(' + image_urls[2] + ') no-repeat'
 		dialogbg:'#001F3F'
 		url: 'http://www.twitter.com/icdiscdoctors'
-		linkclass: 'dark-theme'
 		linktext: 'follow the discDoctors'
 		opacity: 0.1
 
@@ -63,7 +59,6 @@ services.service 'getHomePageService', [() ->
 		bg: '#fff center top/cover url(' + image_urls[3] + ') no-repeat'
 		dialogbg:'#3A3B3C'
 		url: false
-		linkclass: 'hidden'
 		opacity: 0.25
 
 	pages = [developer,onigiris, griffin, lfc, ultimate]
