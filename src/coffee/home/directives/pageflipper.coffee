@@ -11,10 +11,10 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 		)
 
 		getHomePageService.loadImages()
-		
+
 
 		first_page = getHomePageService.getPage()
-		
+
 		setPage = (page) =>
 			scope.text = page.text
 			scope.highlight = page.highlight
@@ -23,7 +23,8 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 			scope.dialogbg = page.dialogbg
 			scope.url = page.url
 			scope.linkclass = page.linkclass
-			scope.attribution = page.attribution
+			scope.linktext = page.linktext
+			scope.opacity = page.opacity
 			return
 
 		setPage(first_page)

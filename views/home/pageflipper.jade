@@ -1,11 +1,11 @@
-.page-flipper-container(style="background:{{bg}};color:{{color}}")
-	.page-flipper-control.page-flipper-control-background(style="background:{{dialogbg}}")
+.page-flipper-container(style="background:{{bg}};")
+	.page-flipper-control.page-flipper-control-background(style="background-color:{{dialogbg}};opacity:{{opacity}};")
 	.page-flipper-control
-		.page-flipper-control-content
+		.page-flipper-control-content(style="color:{{color}};")
 			.page-flipper-top Hi, I'm George
 			.page-flipper-mid
-				span and I 
-				span.page-flipper-controller(ng-click="changeBackground()", style="background-color:{{highlight}}") {{text}} 
-			.page-flipper-bottom(class="{{linkclass}}") 
-				a(href="{{url}}") check it out
-	.photo-attribution(ng-show=attribution) {{attribution}}
+				span and I
+				span.page-flipper-controller(ng-click="changeBackground()") {{text}}
+			.page-flipper-bottom(ng-show="url")
+				a(href="{{url}}" target="_blank") {{linktext}}
+	//- .photo-attribution(ng-show=attribution) {{attribution}}

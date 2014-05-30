@@ -3,10 +3,10 @@ services = angular.module 'joji.services', [] if !services
 services.service 'getHomePageService', [() ->
 
 	image_urls = [
-		'https://farm3.staticflickr.com/2896/14085436883_38cf596d70_b.jpg',
-		'https://farm4.staticflickr.com/3784/11276270996_ad307bfb5d_h.jpg',
-		'http://i.imgur.com/ogqWv1E.jpg',
-		'http://i.imgur.com/PvjQiCq.jpg'
+		'http://i.imgur.com/dy6fjv7.jpg',
+		'http://i.imgur.com/peGDea9.jpg',
+		'http://i.imgur.com/jW9mz9D.jpg',
+		'http://i.imgur.com/C2pkoGI.jpg'
 	]
 
 	this.loadImages = () ->
@@ -17,52 +17,56 @@ services.service 'getHomePageService', [() ->
 			return
 		return
 
-	developer = 
-		text: 'am a developer',
-		color: '#111',
-		highlight: '#ECC850'
-		bg: 'transparent',
-		dialogbg:'transparent',
+	developer =
+		text: 'am a developer'
+		color: '#111'
+		bg: 'transparent'
+		dialogbg:'transparent'
 		url: 'http://www.github.com/thetmkay'
 		linkclass: 'dark-theme'
+		linktext: 'check out my github'
+		opacity: 0
 
-	griffin = 
-		text: 'help build robots',
-		color: '#FFF',
-		highlight: '#8A1722'
-		bg: '#fff center center/cover url(' + image_urls[0] + ') no-repeat',
-		dialogbg:'#000',
+	griffin =
+		text: 'help build robots'
+		color: '#FFF'
+		bg: '#fff center center/cover url(' + image_urls[0] + ') no-repeat'
+		dialogbg:'#000'
 		url: 'http://www.griffins1884.com'
 		linkclass: 'dark-theme'
+		linktext: 'learn about the Griffins'
+		opacity: 0.5
 
-	lfc = 
-		text: 'support Liverpool FC',
-		color: '#FFF',
-		highlight: '#574D72'
-		bg: '#fff left top/cover url(' + image_urls[1] + ') no-repeat',
-		dialogbg:'#8A1722',
-		linkclass: 'dark-theme',
-		attribution: 'photo by Ruaraidh Gillies'
+	lfc =
+		text: 'support Liverpool FC'
+		color: '#FFF'
+		bg: '#fff center top/cover url(' + image_urls[1] + ') no-repeat'
+		dialogbg:'#8A1722'
+		linkclass: 'dark-theme'
+		linktext: 'photo by RuaraidhG'
+		url: 'https://www.flickr.com/photos/ruaraidhg/'
+		opacity: 0.2
 
-	ultimate = 
-		text: 'play ultimate',
-		color: '#fff',
-		highlight: '#EF4140'
-		bg: '#fff left top/cover url(' + image_urls[2] + ') no-repeat' ,
-		dialogbg:'#574D72',
+	ultimate =
+		text: 'play ultimate'
+		color: '#fff'
+		bg: '#fff center top/cover url(' + image_urls[2] + ') no-repeat'
+		dialogbg:'#001F3F'
 		url: 'http://www.twitter.com/icdiscdoctors'
 		linkclass: 'dark-theme'
+		linktext: 'follow the discDoctors'
+		opacity: 0.1
 
-	onigiris = 
-		text: 'love onigiris',
-		color: '#fff',
-		highlight: '#18A08C'
-		bg: '#fff left top/cover url(' + image_urls[3] + ') no-repeat' ,
-		dialogbg:'#3A3B3C',
+	onigiris =
+		text: 'love onigiris'
+		color: '#fff'
+		bg: '#fff center top/cover url(' + image_urls[3] + ') no-repeat'
+		dialogbg:'#3A3B3C'
 		url: false
 		linkclass: 'hidden'
+		opacity: 0.25
 
-	pages = [developer,griffin, lfc, ultimate, onigiris]
+	pages = [developer,onigiris, griffin, lfc, ultimate]
 	index = 0
 
 	this.getPage = () ->
