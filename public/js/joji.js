@@ -9208,16 +9208,16 @@ return jQuery;
     };
     var f = function(a, b) {
         var c = "qs-";
-        if (a) return a.data(c + b);
-        return false;
+        return a.data(c + b);
     };
-    var g = function(a, b) {
-        var c = a.parents(".qs-container[data-qs-" + b + "]");
-        if (c) return f(c, b); else return false;
-    };
-    var h = function(a) {
-        var c = {}, d = g(a, "url"), h = g(a, "title"), i = g(a, "suffix");
-        var j = f(a, "suffix") || i || "", k = f(a, "url") || d || b.location.href, l = f(a, "title") || h || "Sharing: ";
+    var g = function(a) {
+        var c = {}, d = a.parents(".qs-container"), g, h, i;
+        if (d) {
+            g = f(d, "url");
+            h = f(d, "title");
+            i = f(d, "suffix");
+        }
+        var j = f(a, "suffix") || i || "", k = f(a, "url") || g || b.location.href, l = f(a, "title") || h || "Sharing: ";
         if (j) {
             k = e(k, true) + j;
         } else {
@@ -9227,16 +9227,16 @@ return jQuery;
         c.title = escape(l);
         return c;
     };
-    var i = {};
-    i["default"] = {
-        extractParams: h,
+    var h = {};
+    h["default"] = {
+        extractParams: g,
         makeUrl: function(a) {
             console.error("did not provide service to share to");
             return null;
         }
     };
-    i["facebook-share"] = {
-        extractParams: h,
+    h["facebook-share"] = {
+        extractParams: g,
         makeUrl: function(a) {
             var b = "https://www.facebook.com/sharer/sharer.php?u=" + a.src_url;
             return b;
@@ -9253,8 +9253,8 @@ return jQuery;
         },
         icon: "facebook"
     };
-    i["google-plus-share"] = {
-        extractParams: h,
+    h["google-plus-share"] = {
+        extractParams: g,
         makeUrl: function(a) {
             var b = "https://plus.google.com/share?url=" + a.src_url;
             return b;
@@ -9264,8 +9264,8 @@ return jQuery;
         },
         icon: "google-plus"
     };
-    i["hacker-news"] = {
-        extractParams: h,
+    h["hacker-news"] = {
+        extractParams: g,
         makeUrl: function(a) {
             var b = "http://news.ycombinator.com/submitlink?u=" + a.src_url + c("&t=", a.title);
             return b;
@@ -9281,12 +9281,12 @@ return jQuery;
         },
         icon: "external-link"
     };
-    i["mailto"] = {
+    h["mailto"] = {
         extractParams: function(a) {
-            var b = h(a), c = f(a, "mail-body"), e = f(a, "subject"), g = f(a, "send-to");
+            var b = g(a), c = f(a, "mail-body"), e = f(a, "subject"), h = f(a, "send-to");
             b.mail_body = d(c, b.title + escape(" ") + b.src_url);
             b.subject = d(e, b.title);
-            b.send_to = escape(g || "");
+            b.send_to = escape(h || "");
             return b;
         },
         makeUrl: function(a) {
@@ -9296,8 +9296,8 @@ return jQuery;
         getCount: function(a, b) {},
         icon: "envelope-o"
     };
-    i["reddit"] = {
-        extractParams: h,
+    h["reddit"] = {
+        extractParams: g,
         makeUrl: function(a) {
             var b = "http://www.reddit.com/submit?url=" + a.src_url + c("&title=", a.title);
             return b;
@@ -9313,9 +9313,9 @@ return jQuery;
         },
         icon: "external-link"
     };
-    i["twitter"] = {
+    h["twitter"] = {
         extractParams: function(a) {
-            var b = h(a), c = f(a, "tweet-body"), e = f(a, "via-username");
+            var b = g(a), c = f(a, "tweet-body"), e = f(a, "via-username");
             b.tweet_body = d(c, b.title);
             b.via_username = d(e, null);
             return b;
@@ -9340,11 +9340,11 @@ return jQuery;
         if (!c) c = b.document;
         var d = a(c), e = d.find(".qs-link");
         e.each(function() {
-            var b = a(this), c = f(b, "service") || "default", d = f(b, "count-selector") || false, e = b.children("i.qs-icon") || false, g = i[c] || i["default"], h = g.extractParams(b), j = g.makeUrl(h);
+            var b = a(this), c = f(b, "service") || "default", d = f(b, "count-selector") || false, e = b.children("i.qs-icon") || false, g = h[c] || h["default"], i = g.extractParams(b), j = g.makeUrl(i);
             if (j) b.attr("href", j);
             if (e) e.addClass("fa fa-" + g.icon);
             if (d) {
-                g.getCount(h.src_url, function(b) {
+                g.getCount(i.src_url, function(b) {
                     a(d).text(b);
                 });
             }
@@ -9355,7 +9355,9 @@ return jQuery;
 	'use strict';
 
 	$.fn.cascadeStream = function() {
+		console.log($('.cs-block'));
 		$('.cs-block').on('click', function(event) {
+			console.log('clicked');
 			var $this = $(this);
 			if($this.hasClass('cs-full')) {
 				return
@@ -9367,9 +9369,9 @@ return jQuery;
 			$(this).addClass('cs-full');
 			$(this).unbind('click');
 
-			$(this).children('.cs-hidden').removeClass('cs-hidden');
-
 			// $this.detach();
+
+			$(this).children('.cs-hidden').removeClass('cs-hidden');
 
 			var $prev = $this.prevAll('.cs-full');
 
@@ -9406,11 +9408,13 @@ return jQuery;
 			// 	});
 			// });
 		});
+
+		console.log('cascade stream done');
 	};
 
 })(jQuery);
 ;/**
- * @license AngularJS v1.2.17-build.156+sha.3d0b49c
+ * @license AngularJS v1.2.16
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -9479,7 +9483,7 @@ function minErr(module) {
       return match;
     });
 
-    message = message + '\nhttp://errors.angularjs.org/1.2.17-build.156+sha.3d0b49c/' +
+    message = message + '\nhttp://errors.angularjs.org/1.2.16/' +
       (module ? module + '/' : '') + code;
     for (i = 2; i < arguments.length; i++) {
       message = message + (i == 2 ? '?' : '&') + 'p' + (i-2) + '=' +
@@ -9500,6 +9504,7 @@ function minErr(module) {
     -push,
     -toString,
     -ngMinErr,
+    -_angular,
     -angularModule,
     -nodeName_,
     -uid,
@@ -9650,6 +9655,8 @@ var /** holds major version number for IE or NaN for real browsers */
     toString          = Object.prototype.toString,
     ngMinErr          = minErr('ng'),
 
+
+    _angular          = window.angular,
     /** @name angular */
     angular           = window.angular || (window.angular = {}),
     angularModule,
@@ -11191,8 +11198,6 @@ function setupModuleLoader(window) {
            *    configuration.
            * @description
            * Use this method to register work which needs to be performed on module loading.
-           * For more about how to configure services, see
-           * {@link providers#providers_provider-recipe Provider Recipe}.
            */
           config: config,
 
@@ -11329,11 +11334,11 @@ function setupModuleLoader(window) {
  * - `codeName` – `{string}` – Code name of the release, such as "jiggling-armfat".
  */
 var version = {
-  full: '1.2.17-build.156+sha.3d0b49c',    // all of these placeholder strings will be replaced by grunt's
+  full: '1.2.16',    // all of these placeholder strings will be replaced by grunt's
   major: 1,    // package task
   minor: 2,
-  dot: 17,
-  codeName: 'snapshot'
+  dot: 16,
+  codeName: 'badger-enumeration'
 };
 
 
@@ -12539,7 +12544,7 @@ HashMap.prototype = {
  *
  * Sometimes you want to get access to the injector of a currently running Angular app
  * from outside Angular. Perhaps, you want to inject and compile some markup after the
- * application has been bootstrapped. You can do this using the extra `injector()` added
+ * application has been bootstrapped. You can do this using extra `injector()` added
  * to JQuery/jqLite elements. See {@link angular.element}.
  *
  * *This is fairly rare but could be the case if a third party library is injecting the
@@ -12652,7 +12657,7 @@ function annotate(fn) {
  * minification, and obfuscation tools since these tools change the argument names.
  *
  * ## `$inject` Annotation
- * By adding an `$inject` property onto a function the injection parameters can be specified.
+ * By adding a `$inject` property onto a function the injection parameters can be specified.
  *
  * ## Inline
  * As an array of injection names, where the last item in the array is the function to call.
@@ -12689,7 +12694,7 @@ function annotate(fn) {
  * @name $injector#has
  *
  * @description
- * Allows the user to query if the particular service exists.
+ * Allows the user to query if the particular service exist.
  *
  * @param {string} Name of the service to query.
  * @returns {boolean} returns true if injector has given service.
@@ -12699,8 +12704,8 @@ function annotate(fn) {
  * @ngdoc method
  * @name $injector#instantiate
  * @description
- * Create a new instance of JS type. The method takes a constructor function, invokes the new
- * operator, and supplies all of the arguments to the constructor function as specified by the
+ * Create a new instance of JS type. The method takes a constructor function invokes the new
+ * operator and supplies all of the arguments to the constructor function as specified by the
  * constructor annotation.
  *
  * @param {Function} Type Annotated constructor function.
@@ -13313,7 +13318,7 @@ function createInjector(modulesToLoad) {
  * @requires $rootScope
  *
  * @description
- * When called, it checks current value of `$location.hash()` and scrolls to the related element,
+ * When called, it checks current value of `$location.hash()` and scroll to related element,
  * according to rules specified in
  * [Html5 spec](http://dev.w3.org/html5/spec/Overview.html#the-indicated-part-of-the-document).
  *
@@ -15699,7 +15704,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             if (jqLiteIsTextNode(directiveValue)) {
               $template = [];
             } else {
-              $template = jqLite(trim(directiveValue));
+              $template = jqLite(directiveValue);
             }
             compileNode = $template[0];
 
@@ -15782,7 +15787,6 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         if (pre) {
           if (attrStart) pre = groupElementsLinkFnWrapper(pre, attrStart, attrEnd);
           pre.require = directive.require;
-          pre.directiveName = directiveName;
           if (newIsolateScopeDirective === directive || directive.$$isolateScope) {
             pre = cloneAndAnnotateFn(pre, {isolateScope: true});
           }
@@ -15791,7 +15795,6 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         if (post) {
           if (attrStart) post = groupElementsLinkFnWrapper(post, attrStart, attrEnd);
           post.require = directive.require;
-          post.directiveName = directiveName;
           if (newIsolateScopeDirective === directive || directive.$$isolateScope) {
             post = cloneAndAnnotateFn(post, {isolateScope: true});
           }
@@ -15800,7 +15803,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
       }
 
 
-      function getControllers(directiveName, require, $element, elementControllers) {
+      function getControllers(require, $element, elementControllers) {
         var value, retrievalMethod = 'data', optional = false;
         if (isString(require)) {
           while((value = require.charAt(0)) == '^' || value == '?') {
@@ -15826,7 +15829,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
         } else if (isArray(require)) {
           value = [];
           forEach(require, function(require) {
-            value.push(getControllers(directiveName, require, $element, elementControllers));
+            value.push(getControllers(require, $element, elementControllers));
           });
         }
         return value;
@@ -15969,7 +15972,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
           try {
             linkFn = preLinkFns[i];
             linkFn(linkFn.isolateScope ? isolateScope : scope, $element, attrs,
-                linkFn.require && getControllers(linkFn.directiveName, linkFn.require, $element, elementControllers), transcludeFn);
+                linkFn.require && getControllers(linkFn.require, $element, elementControllers), transcludeFn);
           } catch (e) {
             $exceptionHandler(e, startingTag($element));
           }
@@ -15989,7 +15992,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
           try {
             linkFn = postLinkFns[i];
             linkFn(linkFn.isolateScope ? isolateScope : scope, $element, attrs,
-                linkFn.require && getControllers(linkFn.directiveName, linkFn.require, $element, elementControllers), transcludeFn);
+                linkFn.require && getControllers(linkFn.require, $element, elementControllers), transcludeFn);
           } catch (e) {
             $exceptionHandler(e, startingTag($element));
           }
@@ -16128,7 +16131,7 @@ function $CompileProvider($provide, $$sanitizeUriProvider) {
             if (jqLiteIsTextNode(content)) {
               $template = [];
             } else {
-              $template = jqLite(trim(content));
+              $template = jqLite(content);
             }
             compileNode = $template[0];
 
@@ -16409,9 +16412,7 @@ function directiveNormalize(name) {
  * element attributes. The values reflect current binding state `{{ }}`. The normalization is
  * needed since all of these are treated as equivalent in Angular:
  *
- * ```
  *    <span ng:bind="a" ng-bind="a" data-ng-bind="a" x-ng-bind="a">
- * ```
  */
 
 /**
@@ -17717,13 +17718,16 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
       var callbackId = '_' + (callbacks.counter++).toString(36);
       callbacks[callbackId] = function(data) {
         callbacks[callbackId].data = data;
-        callbacks[callbackId].called = true;
       };
 
       var jsonpDone = jsonpReq(url.replace('JSON_CALLBACK', 'angular.callbacks.' + callbackId),
-          callbackId, function(status, text) {
-        completeRequest(callback, status, callbacks[callbackId].data, "", text);
-        callbacks[callbackId] = noop;
+          function() {
+        if (callbacks[callbackId].data) {
+          completeRequest(callback, 200, callbacks[callbackId].data);
+        } else {
+          completeRequest(callback, status || -2);
+        }
+        callbacks[callbackId] = angular.noop;
       });
     } else {
 
@@ -17825,52 +17829,34 @@ function createHttpBackend($browser, createXhr, $browserDefer, callbacks, rawDoc
     }
   };
 
-  function jsonpReq(url, callbackId, done) {
+  function jsonpReq(url, done) {
     // we can't use jQuery/jqLite here because jQuery does crazy shit with script elements, e.g.:
     // - fetches local scripts via XHR and evals them
     // - adds and immediately removes script elements from the document
-    var script = rawDocument.createElement('script'), callback = null;
-    script.type = "text/javascript";
+    var script = rawDocument.createElement('script'),
+        doneWrapper = function() {
+          script.onreadystatechange = script.onload = script.onerror = null;
+          rawDocument.body.removeChild(script);
+          if (done) done();
+        };
+
+    script.type = 'text/javascript';
     script.src = url;
-    script.async = true;
 
-    callback = function(event) {
-      removeEventListenerFn(script, "load", callback);
-      removeEventListenerFn(script, "error", callback);
-      rawDocument.body.removeChild(script);
-      script = null;
-      var status = -1;
-      var text = "unknown";
-
-      if (event) {
-        if (event.type === "load" && !callbacks[callbackId].called) {
-          event = { type: "error" };
-        }
-        text = event.type;
-        status = event.type === "error" ? 404 : 200;
-      }
-
-      if (done) {
-        done(status, text);
-      }
-    };
-
-    addEventListenerFn(script, "load", callback);
-    addEventListenerFn(script, "error", callback);
-
-    if (msie <= 8) {
+    if (msie && msie <= 8) {
       script.onreadystatechange = function() {
-        if (isString(script.readyState) && /loaded|complete/.test(script.readyState)) {
-          script.onreadystatechange = null;
-          callback({
-            type: 'load'
-          });
+        if (/loaded|complete/.test(script.readyState)) {
+          doneWrapper();
         }
+      };
+    } else {
+      script.onload = script.onerror = function() {
+        doneWrapper();
       };
     }
 
     rawDocument.body.appendChild(script);
-    return callback;
+    return doneWrapper;
   }
 }
 
@@ -18566,7 +18552,7 @@ function LocationHashbangUrl(appBase, hashPrefix) {
       Matches paths for file protocol on windows,
       such as /C:/foo/bar, and captures only /foo/bar.
       */
-      var windowsFilePathExp = /^\/[A-Z]:(\/.*)/;
+      var windowsFilePathExp = /^\/?.*?:(\/.*)/;
 
       var firstPathSegmentMatch;
 
@@ -18575,7 +18561,10 @@ function LocationHashbangUrl(appBase, hashPrefix) {
         url = url.replace(base, '');
       }
 
-      // The input URL intentionally contains a first path segment that ends with a colon.
+      /*
+       * The input URL intentionally contains a
+       * first path segment that ends with a colon.
+       */
       if (windowsFilePathExp.exec(url)) {
         return path;
       }
@@ -18631,16 +18620,6 @@ function LocationHashbangInHtml5Url(appBase, hashPrefix) {
       return appBaseNoFile;
     }
   };
-
-  this.$$compose = function() {
-    var search = toKeyValue(this.$$search),
-        hash = this.$$hash ? '#' + encodeUriSegment(this.$$hash) : '';
-
-    this.$$url = encodePath(this.$$path) + (search ? '?' + search : '') + hash;
-    // include hashPrefix in $$absUrl when $$url is empty so IE8 & 9 do not reload page because of removal of '#'
-    this.$$absUrl = appBase + hashPrefix + this.$$url;
-  };
-
 }
 
 
@@ -18772,37 +18751,15 @@ LocationHashbangInHtml5Url.prototype =
    *
    * Change search part when called with parameter and return `$location`.
    *
-   *
-   * ```js
-   * // given url http://example.com/#/some/path?foo=bar&baz=xoxo
-   * var searchObject = $location.search();
-   * // => {foo: 'bar', baz: 'xoxo'}
-   *
-   *
-   * // set foo to 'yipee'
-   * $location.search('foo', 'yipee');
-   * // => $location
-   * ```
-   *
    * @param {string|Object.<string>|Object.<Array.<string>>} search New search params - string or
-   * hash object.
+   * hash object. Hash object may contain an array of values, which will be decoded as duplicates in
+   * the url.
    *
-   * When called with a single argument the method acts as a setter, setting the `search` component
-   * of `$location` to the specified value.
+   * @param {(string|Array<string>)=} paramValue If `search` is a string, then `paramValue` will override only a
+   * single search parameter. If `paramValue` is an array, it will set the parameter as a
+   * comma-separated value. If `paramValue` is `null`, the parameter will be deleted.
    *
-   * If the argument is a hash object containing an array of values, these values will be encoded
-   * as duplicate search parameters in the url.
-   *
-   * @param {(string|Array<string>)=} paramValue If `search` is a string, then `paramValue` will
-   * override only a single search property.
-   *
-   * If `paramValue` is an array, it will override the property of the `search` component of
-   * `$location` specified via the first argument.
-   *
-   * If `paramValue` is `null`, the property specified via the first argument will be deleted.
-   *
-   * @return {Object} If called with no arguments returns the parsed `search` object. If called with
-   * one or more arguments returns `$location` object itself.
+   * @return {string} search
    */
   search: function(search, paramValue) {
     switch (arguments.length) {
@@ -19013,39 +18970,6 @@ function $LocationProvider(){
         // SVGAnimatedString.animVal should be identical to SVGAnimatedString.baseVal, unless during
         // an animation.
         absHref = urlResolve(absHref.animVal).href;
-      }
-
-      // Make relative links work in HTML5 mode for legacy browsers (or at least IE8 & 9)
-      // The href should be a regular url e.g. /link/somewhere or link/somewhere or ../somewhere or
-      // somewhere#anchor or http://example.com/somewhere
-      if (LocationMode === LocationHashbangInHtml5Url) {
-        // get the actual href attribute - see
-        // http://msdn.microsoft.com/en-us/library/ie/dd347148(v=vs.85).aspx
-        var href = elm.attr('href') || elm.attr('xlink:href');
-
-        if (href.indexOf('://') < 0) {         // Ignore absolute URLs
-          var prefix = '#' + hashPrefix;
-          if (href[0] == '/') {
-            // absolute path - replace old path
-            absHref = appBase + prefix + href;
-          } else if (href[0] == '#') {
-            // local anchor
-            absHref = appBase + prefix + ($location.path() || '/') + href;
-          } else {
-            // relative path - join with current path
-            var stack = $location.path().split("/"),
-              parts = href.split("/");
-            for (var i=0; i<parts.length; i++) {
-              if (parts[i] == ".")
-                continue;
-              else if (parts[i] == "..")
-                stack.pop();
-              else if (parts[i].length)
-                stack.push(parts[i]);
-            }
-            absHref = appBase + prefix + stack.join('/');
-          }
-        }
       }
 
       var rewrittenUrl = $location.$$rewrite(absHref);
@@ -21293,23 +21217,18 @@ function $RootScopeProvider(){
           child.$$asyncQueue = this.$$asyncQueue;
           child.$$postDigestQueue = this.$$postDigestQueue;
         } else {
-          // Only create a child scope class if somebody asks for one,
-          // but cache it to allow the VM to optimize lookups.
-          if (!this.$$childScopeClass) {
-            this.$$childScopeClass = function() {
-              this.$$watchers = this.$$nextSibling =
-                  this.$$childHead = this.$$childTail = null;
-              this.$$listeners = {};
-              this.$$listenerCount = {};
-              this.$id = nextUid();
-              this.$$childScopeClass = null;
-            };
-            this.$$childScopeClass.prototype = this;
-          }
-          child = new this.$$childScopeClass();
+          ChildScope = function() {}; // should be anonymous; This is so that when the minifier munges
+            // the name it does not become random set of chars. This will then show up as class
+            // name in the web inspector.
+          ChildScope.prototype = this;
+          child = new ChildScope();
+          child.$id = nextUid();
         }
         child['this'] = child;
+        child.$$listeners = {};
+        child.$$listenerCount = {};
         child.$parent = this;
+        child.$$watchers = child.$$nextSibling = child.$$childHead = child.$$childTail = null;
         child.$$prevSibling = this.$$childTail;
         if (this.$$childHead) {
           this.$$childTail.$$nextSibling = child;
@@ -21465,7 +21384,7 @@ function $RootScopeProvider(){
         // the while loop reads in reverse order.
         array.unshift(watcher);
 
-        return function deregisterWatch() {
+        return function() {
           arrayRemove(array, watcher);
           lastDirtyWatch = null;
         };
@@ -24602,11 +24521,7 @@ function limitToFilter(){
   return function(input, limit) {
     if (!isArray(input) && !isString(input)) return input;
 
-    if (Math.abs(Number(limit)) === Infinity) {
-      limit = Number(limit);
-    } else {
-      limit = int(limit);
-    }
+    limit = int(limit);
 
     if (isString(input)) {
       //NaN check on limit
@@ -24648,9 +24563,7 @@ function limitToFilter(){
  * @function
  *
  * @description
- * Orders a specified `array` by the `expression` predicate. It is ordered alphabetically
- * for strings and numerically for numbers. Note: if you notice numbers are not being sorted
- * correctly, make sure they are actually being saved as numbers and not strings.
+ * Orders a specified `array` by the `expression` predicate.
  *
  * @param {Array} array The array to sort.
  * @param {function(*)|string|Array.<(function(*)|string)>} expression A predicate to be
@@ -25254,7 +25167,7 @@ var nullFormCtrl = {
  *  - `url`
  *
  * @description
- * `FormController` keeps track of all its controls and nested forms as well as the state of them,
+ * `FormController` keeps track of all its controls and nested forms as well as state of them,
  * such as being valid/invalid or dirty/pristine.
  *
  * Each {@link ng.directive:form form} directive creates an instance
@@ -26096,8 +26009,6 @@ function addNativeHtml5Validators(ctrl, validatorName, element) {
 
 function textInputType(scope, element, attr, ctrl, $sniffer, $browser) {
   var validity = element.prop('validity');
-  var placeholder = element[0].placeholder, noevent = {};
-
   // In composition mode, users are still inputing intermediate text buffer,
   // hold the listener until composition is done.
   // More about composition events: https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent
@@ -26114,18 +26025,9 @@ function textInputType(scope, element, attr, ctrl, $sniffer, $browser) {
     });
   }
 
-  var listener = function(ev) {
+  var listener = function() {
     if (composing) return;
     var value = element.val();
-
-    // IE (11 and under) seem to emit an 'input' event if the placeholder value changes.
-    // We don't want to dirty the value when this happens, so we abort here. Unfortunately,
-    // IE also sends input events for other non-input-related things, (such as focusing on a
-    // form control), so this change is not entirely enough to solve this.
-    if (msie && (ev || noevent).type === 'input' && element[0].placeholder !== placeholder) {
-      placeholder = element[0].placeholder;
-      return;
-    }
 
     // By default we will trim the value
     // If the attribute ng-trim exists we will avoid trimming
@@ -30020,14 +29922,11 @@ var ngStyleDirective = ngDirective(function(scope, element, attr) {
  * leave - happens just after the ngSwitch contents change and just before the former contents are removed from the DOM
  *
  * @usage
- *
- * ```
  * <ANY ng-switch="expression">
  *   <ANY ng-switch-when="matchValue1">...</ANY>
  *   <ANY ng-switch-when="matchValue2">...</ANY>
  *   <ANY ng-switch-default>...</ANY>
  * </ANY>
- * ```
  *
  *
  * @scope
@@ -30401,7 +30300,7 @@ var ngOptionsMinErr = minErr('ngOptions');
             {name:'blue', shade:'dark'},
             {name:'yellow', shade:'light'}
           ];
-          $scope.myColor = $scope.colors[2]; // red
+          $scope.color = $scope.colors[2]; // red
         }
         </script>
         <div ng-controller="MyCntrl">
@@ -30416,37 +30315,37 @@ var ngOptionsMinErr = minErr('ngOptions');
           </ul>
           <hr/>
           Color (null not allowed):
-          <select ng-model="myColor" ng-options="color.name for color in colors"></select><br>
+          <select ng-model="color" ng-options="c.name for c in colors"></select><br>
 
           Color (null allowed):
           <span  class="nullable">
-            <select ng-model="myColor" ng-options="color.name for color in colors">
+            <select ng-model="color" ng-options="c.name for c in colors">
               <option value="">-- choose color --</option>
             </select>
           </span><br/>
 
           Color grouped by shade:
-          <select ng-model="myColor" ng-options="color.name group by color.shade for color in colors">
+          <select ng-model="color" ng-options="c.name group by c.shade for c in colors">
           </select><br/>
 
 
-          Select <a href ng-click="myColor = { name:'not in list', shade: 'other' }">bogus</a>.<br>
+          Select <a href ng-click="color={name:'not in list'}">bogus</a>.<br>
           <hr/>
-          Currently selected: {{ {selected_color:myColor}  }}
+          Currently selected: {{ {selected_color:color}  }}
           <div style="border:solid 1px black; height:20px"
-               ng-style="{'background-color':myColor.name}">
+               ng-style="{'background-color':color.name}">
           </div>
         </div>
       </file>
       <file name="protractor.js" type="protractor">
          it('should check ng-options', function() {
-           expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('red');
-           element.all(by.select('myColor')).first().click();
-           element.all(by.css('select[ng-model="myColor"] option')).first().click();
-           expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('black');
-           element(by.css('.nullable select[ng-model="myColor"]')).click();
-           element.all(by.css('.nullable select[ng-model="myColor"] option')).first().click();
-           expect(element(by.binding('{selected_color:myColor}')).getText()).toMatch('null');
+           expect(element(by.binding('{selected_color:color}')).getText()).toMatch('red');
+           element.all(by.select('color')).first().click();
+           element.all(by.css('select[ng-model="color"] option')).first().click();
+           expect(element(by.binding('{selected_color:color}')).getText()).toMatch('black');
+           element(by.css('.nullable select[ng-model="color"]')).click();
+           element.all(by.css('.nullable select[ng-model="color"] option')).first().click();
+           expect(element(by.binding('{selected_color:color}')).getText()).toMatch('null');
          });
       </file>
     </example>
@@ -30977,8 +30876,8 @@ var styleDirective = valueFn({
 
 })(window, document);
 
-!window.angular.$$csp() && window.angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}</style>');;/**
- * @license AngularJS v1.2.17-build.156+sha.3d0b49c
+!angular.$$csp() && angular.element(document).find('head').prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}ng\\:form{display:block;}.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}</style>');;/**
+ * @license AngularJS v1.2.16
  * (c) 2010-2014 Google, Inc. http://angularjs.org
  * License: MIT
  */
@@ -34315,7 +34214,7 @@ angular.module('ui.router.compat')
   services.service('getHomePageService', [
     function() {
       var developer, griffin, image_urls, index, lfc, onigiris, pages, ultimate;
-      image_urls = ['https://farm3.staticflickr.com/2896/14085436883_38cf596d70_b.jpg', 'https://farm4.staticflickr.com/3784/11276270996_ad307bfb5d_h.jpg', 'http://i.imgur.com/ogqWv1E.jpg', 'http://i.imgur.com/PvjQiCq.jpg'];
+      image_urls = ['http://i.imgur.com/dy6fjv7.jpg', 'http://i.imgur.com/peGDea9.jpg', 'http://i.imgur.com/jW9mz9D.jpg', 'http://i.imgur.com/C2pkoGI.jpg'];
       this.loadImages = function() {
         var images;
         images = [];
@@ -34327,49 +34226,53 @@ angular.module('ui.router.compat')
       developer = {
         text: 'am a developer',
         color: '#111',
-        highlight: '#ECC850',
         bg: 'transparent',
         dialogbg: 'transparent',
         url: 'http://www.github.com/thetmkay',
-        linkclass: 'dark-theme'
+        linkclass: 'dark-theme',
+        linktext: 'check out my github',
+        opacity: 0
       };
       griffin = {
         text: 'help build robots',
         color: '#FFF',
-        highlight: '#8A1722',
         bg: '#fff center center/cover url(' + image_urls[0] + ') no-repeat',
         dialogbg: '#000',
         url: 'http://www.griffins1884.com',
-        linkclass: 'dark-theme'
+        linkclass: 'dark-theme',
+        linktext: 'learn about the Griffins',
+        opacity: 0.5
       };
       lfc = {
         text: 'support Liverpool FC',
         color: '#FFF',
-        highlight: '#574D72',
-        bg: '#fff left top/cover url(' + image_urls[1] + ') no-repeat',
+        bg: '#fff center top/cover url(' + image_urls[1] + ') no-repeat',
         dialogbg: '#8A1722',
         linkclass: 'dark-theme',
-        attribution: 'photo by Ruaraidh Gillies'
+        linktext: 'photo by RuaraidhG',
+        url: 'https://www.flickr.com/photos/ruaraidhg/',
+        opacity: 0.2
       };
       ultimate = {
         text: 'play ultimate',
         color: '#fff',
-        highlight: '#EF4140',
-        bg: '#fff left top/cover url(' + image_urls[2] + ') no-repeat',
-        dialogbg: '#574D72',
+        bg: '#fff center top/cover url(' + image_urls[2] + ') no-repeat',
+        dialogbg: '#001F3F',
         url: 'http://www.twitter.com/icdiscdoctors',
-        linkclass: 'dark-theme'
+        linkclass: 'dark-theme',
+        linktext: 'follow the discDoctors',
+        opacity: 0.1
       };
       onigiris = {
         text: 'love onigiris',
         color: '#fff',
-        highlight: '#18A08C',
-        bg: '#fff left top/cover url(' + image_urls[3] + ') no-repeat',
+        bg: '#fff center top/cover url(' + image_urls[3] + ') no-repeat',
         dialogbg: '#3A3B3C',
         url: false,
-        linkclass: 'hidden'
+        linkclass: 'hidden',
+        opacity: 0.25
       };
-      pages = [developer, griffin, lfc, ultimate, onigiris];
+      pages = [developer, onigiris, griffin, lfc, ultimate];
       index = 0;
       this.getPage = function() {
         return pages[index];
@@ -34632,16 +34535,34 @@ angular.module('ui.router.compat')
         replace: false,
         templateUrl: 'home/cascadestream',
         link: function(scope, element, attrs) {
-          var $elem;
+          var $elem, $wind;
           console.log(Modernizr);
           if ($window.innerWidth >= 400) {
             angular.element('document').cascadeStream();
+            $wind = angular.element($window);
+            $wind.on('scroll', function() {
+              var scroll_pos;
+              console.log($wind.scrollTop());
+              scroll_pos = $wind.scrollTop() + $window.innerHeight;
+              return angular.element('.cs-block').each(function() {
+                var $this, this_pos;
+                $this = angular.element(this);
+                this_pos = $this.offset().top;
+                if (scroll_pos > this_pos + 200) {
+                  return $this.click();
+                }
+              });
+            });
           }
           angular.element('.cs-block').on('click', function() {
-            console.log(angular.element(this).position());
-            return angular.element('html,body').animate({
-              scrollTop: angular.element(this).position().top - 10
+            var $this, scroll_pos;
+            $this = angular.element(this);
+            console.log($this.position());
+            scroll_pos = $this.position().top - $window.innerHeight + $this.height() + 100;
+            angular.element('html,body').animate({
+              scrollTop: scroll_pos
             });
+            return angular.element(this).off('click');
           });
           $elem = angular.element(element);
         }
@@ -34692,7 +34613,8 @@ angular.module('ui.router.compat')
             scope.dialogbg = page.dialogbg;
             scope.url = page.url;
             scope.linkclass = page.linkclass;
-            scope.attribution = page.attribution;
+            scope.linktext = page.linktext;
+            scope.opacity = page.opacity;
           };
           setPage(first_page);
           scope.changeBackground = function() {
