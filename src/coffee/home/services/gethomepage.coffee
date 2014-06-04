@@ -1,6 +1,6 @@
 services = angular.module 'joji.services', [] if !services
 
-services.service 'getHomePageService', [() ->
+services.service 'getHomePageService', ['$timeout',($timeout) ->
 
 	image_urls = [
 		'http://i.imgur.com/dy6fjv7.jpg',
@@ -9,12 +9,13 @@ services.service 'getHomePageService', [() ->
 		'http://i.imgur.com/C2pkoGI.jpg'
 	]
 
-	this.loadImages = () ->
+	this.loadImages = (callback) ->
 		images = [];
 		image_urls.forEach (element, index) ->
 			images.push(new Image())
 			images[index].src = element
 			return
+		$timeout(callback, 3000)
 		return
 
 	developer =

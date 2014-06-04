@@ -34313,16 +34313,17 @@ angular.module('ui.router.compat')
   }
 
   services.service('getHomePageService', [
-    function() {
+    '$timeout', function($timeout) {
       var developer, griffin, image_urls, index, lfc, onigiris, pages, ultimate;
       image_urls = ['http://i.imgur.com/dy6fjv7.jpg', 'http://i.imgur.com/peGDea9.jpg', 'http://i.imgur.com/jW9mz9D.jpg', 'http://i.imgur.com/C2pkoGI.jpg'];
-      this.loadImages = function() {
+      this.loadImages = function(callback) {
         var images;
         images = [];
         image_urls.forEach(function(element, index) {
           images.push(new Image());
           images[index].src = element;
         });
+        $timeout(callback, 3000);
       };
       developer = {
         text: 'am a developer',
@@ -34650,16 +34651,6 @@ angular.module('ui.router.compat')
               });
             });
           }
-          angular.element('.cs-block').on('click', function() {
-            var $this, scroll_pos;
-            $this = angular.element(this);
-            console.log($this.position());
-            scroll_pos = $this.position().top - $window.innerHeight + $this.height() + 100;
-            angular.element('html,body').animate({
-              scrollTop: scroll_pos
-            });
-            return angular.element(this).off('click');
-          });
           $elem = angular.element(element);
         }
       };
@@ -34687,19 +34678,18 @@ angular.module('ui.router.compat')
   }
 
   directives.directive('pageFlipper', [
-    '$window', 'getHomePageService', function($window, getHomePageService) {
+    '$interval', '$window', 'getHomePageService', function($interval, $window, getHomePageService) {
       return {
         restrict: 'E',
         scope: true,
         replace: false,
         templateUrl: 'home/pageflipper',
         link: function(scope, element, attrs) {
-          var first_page, setPage,
+          var animateBackground, first_page, interval, setPage,
             _this = this;
           angular.element(element).css({
             'height': ($window.innerHeight - 100) + 'px'
           });
-          getHomePageService.loadImages();
           first_page = getHomePageService.getPage();
           setPage = function(page) {
             scope.text = page.text;
@@ -34711,10 +34701,20 @@ angular.module('ui.router.compat')
             scope.opacity = page.opacity;
           };
           setPage(first_page);
-          scope.changeBackground = function() {
+          this.flip = function() {
             var newPage;
             newPage = getHomePageService.getNextPage();
             setPage(newPage);
+          };
+          interval = false;
+          animateBackground = function() {
+            _this.flip();
+            interval = $interval(_this.flip, 3000);
+          };
+          getHomePageService.loadImages(animateBackground);
+          scope.changeBackground = function() {
+            $interval.cancel(interval);
+            flip();
           };
         }
       };

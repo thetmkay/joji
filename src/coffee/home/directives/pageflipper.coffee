@@ -1,6 +1,6 @@
 directives = angular.module 'joji.directives', [] if !directives
 
-directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, getHomePageService) ->
+directives.directive 'pageFlipper', ['$interval','$window', 'getHomePageService',($interval, $window, getHomePageService) ->
 	restrict: 'E'
 	scope: true
 	replace: false
@@ -10,7 +10,6 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 			'height': ($window.innerHeight - 100) + 'px';
 		)
 
-		getHomePageService.loadImages()
 
 
 		first_page = getHomePageService.getPage()
@@ -27,9 +26,23 @@ directives.directive 'pageFlipper', ['$window', 'getHomePageService',($window, g
 
 		setPage(first_page)
 
-		scope.changeBackground = () ->
+		this.flip = () =>
 			newPage = getHomePageService.getNextPage()
 			setPage(newPage)
+			return
+
+		interval = false
+
+		animateBackground = () =>
+			this.flip()
+			interval = $interval(this.flip, 3000)
+			return
+
+		getHomePageService.loadImages(animateBackground)
+
+		scope.changeBackground = () ->
+			$interval.cancel(interval)
+			flip()
 			return
 		return
 

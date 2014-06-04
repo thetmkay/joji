@@ -20,14 +20,14 @@ directives.directive 'cascadeStream', ['$window', ($window) ->
 						$this.click()
 
 
-		angular.element('.cs-block').on 'click', () ->
-			$this = angular.element(this)
-			console.log $this.position()
-			scroll_pos =  $this.position().top - $window.innerHeight + $this.height() + 100;
-			angular.element('html,body').animate(
-				scrollTop: scroll_pos
-			)
-			angular.element(this).off 'click'
+		# angular.element('.cs-block').on 'click', () ->
+		# 	$this = angular.element(this)
+		# 	console.log $this.position()
+		# 	scroll_pos =  $this.position().top - $window.innerHeight + $this.height() + 100;
+		# 	angular.element('html,body').animate(
+		# 		scrollTop: scroll_pos
+		# 	)
+		# 	angular.element(this).off 'click'
 
 		$elem = angular.element(element)
 
