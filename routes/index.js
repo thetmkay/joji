@@ -2,7 +2,7 @@ var path = require('path'),
 	view_dir = "";
 
 exports.setViewDirectory = function(dir) {
-	dir = view_dir;
+	view_dir = dir;
 }
 
 exports.index = function(req, res){

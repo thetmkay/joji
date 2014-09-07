@@ -1,0 +1,5 @@
+{
+    "statics":["public"],
+    "routes":"router.js",
+    "views":"views"
+}
