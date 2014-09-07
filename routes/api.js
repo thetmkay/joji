@@ -20,9 +20,14 @@ exports.getPost = function(req,res) {
 
 exports.getPosts = function(req,res) {
 	mongo.getPosts(function(err,result) {
-		result.toArray(function(err,result) {
-			console.log(result);
-			res.json(result);
-		});
+
+		if(err) {
+			console.error(err)
+		} else {
+			result.toArray(function(err,result) {
+				console.log(result);
+				res.json(result);
+			});
+		}
 	});
 };
