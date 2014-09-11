@@ -66,7 +66,7 @@ module.exports = function(grunt) {
             }
         }
     },
-    concurrent : {
+    concurrent: {
         dev: {
             tasks: ['nodemon:dev', 'watch'],
             options: {

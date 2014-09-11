@@ -6,18 +6,11 @@ app = angular.module 'joji', [
 	'ngResource'
 ]
 app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locationProvider,$stateProvider,$urlRouterProvider) ->
-	$urlRouterProvider.otherwise '/blog'
+	$urlRouterProvider.otherwise '/'
 
 	$stateProvider
-		.state 'home',
-			url: '/'
-			templateUrl: 'home/page'
-			onEnter: ['brainService', (brainService) ->
-				brainService.setUrl("/")
-				brainService.setTitle("George's Site")
-			]
 		.state 'blog',
-			url: '/blog'
+			url: '/'
 			abstract: true
 			template: "<ui-view/>"
 		.state 'blog.list',
@@ -25,7 +18,7 @@ app.config ['$locationProvider', '$stateProvider', '$urlRouterProvider', ($locat
 			parent: 'blog'
 			templateUrl: 'blog/home'
 		.state 'blog.post',
-			url: '/post/:posturl'
+			url: 'post/:posturl'
 			parent: 'blog'
 			templateUrl: 'blog/page',
 			onEnter: ['$stateParams', 'getPostService', ($stateParams, getPostService) ->
